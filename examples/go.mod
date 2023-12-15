@@ -2,7 +2,7 @@ module sdk
 
 go 1.18
 
-require github.com/sailpoint-oss/golang-sdk v1.0.1
+require github.com/davidsonjon/golang-sdk v1.0.1
 
 require (
 	github.com/fsnotify/fsnotify v1.6.0 // indirect

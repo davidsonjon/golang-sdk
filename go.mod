@@ -1,4 +1,4 @@
-module github.com/sailpoint-oss/golang-sdk
+module github.com/davidsonjon/golang-sdk
 
 go 1.19
 

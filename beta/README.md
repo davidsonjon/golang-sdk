@@ -23,7 +23,7 @@ go get golang.org/x/net/context
 Put the package under your project folder and add the following in import:
 
 ```golang
-import beta "github.com/sailpoint-oss/golang-sdk"
+import beta "github.com/davidsonjon/golang-sdk"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:

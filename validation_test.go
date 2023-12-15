@@ -6,8 +6,8 @@ import (
 	"os"
 	"testing"
 
-	beta "github.com/sailpoint-oss/golang-sdk/beta"
-	v3 "github.com/sailpoint-oss/golang-sdk/v3"
+	beta "github.com/davidsonjon/golang-sdk/beta"
+	v3 "github.com/davidsonjon/golang-sdk/v3"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

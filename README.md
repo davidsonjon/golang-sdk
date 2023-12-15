@@ -16,7 +16,7 @@ import (
 	"fmt"
 	"os"
 
-	sailpoint "github.com/sailpoint-oss/golang-sdk"
+	sailpoint "github.com/davidsonjon/golang-sdk"
 )
 
 func main() {
@@ -66,9 +66,9 @@ import (
 	"fmt"
 	"os"
 
-	sailpoint "github.com/sailpoint-oss/golang-sdk"
+	sailpoint "github.com/davidsonjon/golang-sdk"
 	// need to import the v3 library so we are aware of the sailpointsdk.Account struct
-	sailpointsdk "github.com/sailpoint-oss/golang-sdk/v3"
+	sailpointsdk "github.com/davidsonjon/golang-sdk/v3"
 )
 
 func main() {

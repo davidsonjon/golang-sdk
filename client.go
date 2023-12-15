@@ -12,10 +12,10 @@ import (
 	"regexp"
 
 	"github.com/hashicorp/go-retryablehttp"
-	"github.com/sailpoint-oss/golang-sdk/beta"
-	"github.com/sailpoint-oss/golang-sdk/cc"
-	v2 "github.com/sailpoint-oss/golang-sdk/v2"
-	v3 "github.com/sailpoint-oss/golang-sdk/v3"
+	"github.com/davidsonjon/golang-sdk/beta"
+	"github.com/davidsonjon/golang-sdk/cc"
+	v2 "github.com/davidsonjon/golang-sdk/v2"
+	v3 "github.com/davidsonjon/golang-sdk/v3"
 )
 
 var (
