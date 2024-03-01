@@ -11,10 +11,11 @@ package api_cc
 
 import (
 	"context"
+	"testing"
+
+	openapiclient "github.com/davidsonjon/golang-sdk/v2"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
-	openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func Test_api_cc_UserAPIService(t *testing.T) {

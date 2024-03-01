@@ -11,11 +11,11 @@ package sailpoint
 import (
 	"regexp"
 
+	beta "github.com/davidsonjon/golang-sdk/v2/api_beta"
+	cc "github.com/davidsonjon/golang-sdk/v2/api_cc"
+	v2 "github.com/davidsonjon/golang-sdk/v2/api_v2"
+	v3 "github.com/davidsonjon/golang-sdk/v2/api_v3"
 	"github.com/hashicorp/go-retryablehttp"
-	beta "github.com/sailpoint-oss/golang-sdk/v2/api_beta"
-	cc "github.com/sailpoint-oss/golang-sdk/v2/api_cc"
-	v2 "github.com/sailpoint-oss/golang-sdk/v2/api_v2"
-	v3 "github.com/sailpoint-oss/golang-sdk/v2/api_v3"
 )
 
 var (
