@@ -184,7 +184,7 @@ func (r ApiLoadEntitlementsRequest) File(file *os.File) ApiLoadEntitlementsReque
 	return r
 }
 
-func (r ApiLoadEntitlementsRequest) Execute() (map[string]interface{}, *http.Response, error) {
+func (r ApiLoadEntitlementsRequest) Execute() (LoadEntitlementResponse, *http.Response, error) {
 	return r.ApiService.LoadEntitlementsExecute(r)
 }
 
@@ -206,13 +206,13 @@ func (a *SourcesAggregationAPIService) LoadEntitlements(ctx context.Context, id 
 }
 
 // Execute executes the request
-//  @return map[string]interface{}
-func (a *SourcesAggregationAPIService) LoadEntitlementsExecute(r ApiLoadEntitlementsRequest) (map[string]interface{}, *http.Response, error) {
+//  @return LoadEntitlementResponse
+func (a *SourcesAggregationAPIService) LoadEntitlementsExecute(r ApiLoadEntitlementsRequest) (LoadEntitlementResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  map[string]interface{}
+		localVarReturnValue  LoadEntitlementResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesAggregationAPIService.LoadEntitlements")
@@ -228,7 +228,7 @@ func (a *SourcesAggregationAPIService) LoadEntitlementsExecute(r ApiLoadEntitlem
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"multipart/form-data"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)

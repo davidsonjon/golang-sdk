@@ -65,6 +65,10 @@ type APIClient struct {
 	SystemAPI *SystemAPIService
 
 	UserAPI *UserAPIService
+
+	ListEventsApi *ListEventsApiService
+
+	TaskResultsApi *TaskResultsApiService
 }
 
 type service struct {
@@ -90,6 +94,8 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.SourcesAggregationAPI = (*SourcesAggregationAPIService)(&c.common)
 	c.SystemAPI = (*SystemAPIService)(&c.common)
 	c.UserAPI = (*UserAPIService)(&c.common)
+	c.ListEventsApi = (*ListEventsApiService)(&c.common)
+	c.TaskResultsApi =  (*TaskResultsApiService)(&c.common)
 
 	return c
 }
