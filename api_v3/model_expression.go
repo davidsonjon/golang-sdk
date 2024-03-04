@@ -25,7 +25,7 @@ type Expression struct {
 	Attribute *string `json:"attribute,omitempty"`
 	Value *Value `json:"value,omitempty"`
 	// List of expressions
-	Children []Value `json:"children,omitempty"`
+	Children []Expression `json:"children,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -145,9 +145,9 @@ func (o *Expression) SetValue(v Value) {
 }
 
 // GetChildren returns the Children field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Expression) GetChildren() []Value {
+func (o *Expression) GetChildren() []Expression {
 	if o == nil {
-		var ret []Value
+		var ret []Expression
 		return ret
 	}
 	return o.Children
@@ -156,7 +156,7 @@ func (o *Expression) GetChildren() []Value {
 // GetChildrenOk returns a tuple with the Children field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Expression) GetChildrenOk() ([]Value, bool) {
+func (o *Expression) GetChildrenOk() ([]Expression, bool) {
 	if o == nil || isNil(o.Children) {
 		return nil, false
 	}
@@ -173,7 +173,7 @@ func (o *Expression) HasChildren() bool {
 }
 
 // SetChildren gets a reference to the given []Value and assigns it to the Children field.
-func (o *Expression) SetChildren(v []Value) {
+func (o *Expression) SetChildren(v []Expression) {
 	o.Children = v
 }
 
@@ -262,5 +262,3 @@ func (v *NullableExpression) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-
