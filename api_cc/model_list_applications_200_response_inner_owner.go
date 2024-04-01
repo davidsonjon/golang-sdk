@@ -20,6 +20,7 @@ var _ MappedNullable = &ListApplications200ResponseInnerOwner{}
 // ListApplications200ResponseInnerOwner struct for ListApplications200ResponseInnerOwner
 type ListApplications200ResponseInnerOwner struct {
 	Id *string `json:"id,omitempty"`
+	OwnerExternalId *string `json:"ownerExternalId,omitempty"`
 	Name *string `json:"name,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -184,5 +185,3 @@ func (v *NullableListApplications200ResponseInnerOwner) UnmarshalJSON(src []byte
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-
