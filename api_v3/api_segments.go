@@ -19,13 +19,14 @@ import (
 	"strings"
 )
 
+
 // SegmentsAPIService SegmentsAPI service
 type SegmentsAPIService service
 
 type ApiCreateSegmentRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *SegmentsAPIService
-	segment    *Segment
+	segment *Segment
 }
 
 func (r ApiCreateSegmentRequest) Segment(segment Segment) ApiCreateSegmentRequest {
@@ -40,29 +41,28 @@ func (r ApiCreateSegmentRequest) Execute() (*Segment, *http.Response, error) {
 /*
 CreateSegment Create Segment
 
-This API creates a segment.
+This API creates a segment. 
 >**Note:** Segment definitions may take time to propagate to all identities.
 A token with ORG_ADMIN or API authority is required to call this API.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateSegmentRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiCreateSegmentRequest
 */
 func (a *SegmentsAPIService) CreateSegment(ctx context.Context) ApiCreateSegmentRequest {
 	return ApiCreateSegmentRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return Segment
+//  @return Segment
 func (a *SegmentsAPIService) CreateSegmentExecute(r ApiCreateSegmentRequest) (*Segment, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Segment
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Segment
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SegmentsAPIService.CreateSegment")
@@ -127,8 +127,8 @@ func (a *SegmentsAPIService) CreateSegmentExecute(r ApiCreateSegmentRequest) (*S
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -138,8 +138,8 @@ func (a *SegmentsAPIService) CreateSegmentExecute(r ApiCreateSegmentRequest) (*S
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -149,8 +149,8 @@ func (a *SegmentsAPIService) CreateSegmentExecute(r ApiCreateSegmentRequest) (*S
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -160,8 +160,8 @@ func (a *SegmentsAPIService) CreateSegmentExecute(r ApiCreateSegmentRequest) (*S
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -171,8 +171,8 @@ func (a *SegmentsAPIService) CreateSegmentExecute(r ApiCreateSegmentRequest) (*S
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -190,9 +190,9 @@ func (a *SegmentsAPIService) CreateSegmentExecute(r ApiCreateSegmentRequest) (*S
 }
 
 type ApiDeleteSegmentRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *SegmentsAPIService
-	id         string
+	id string
 }
 
 func (r ApiDeleteSegmentRequest) Execute() (*http.Response, error) {
@@ -206,24 +206,24 @@ This API deletes the segment specified by the given ID.
 >**Note:** that segment deletion may take some time to become effective.
 A token with ORG_ADMIN or API authority is required to call this API.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The segment ID to delete.
-	@return ApiDeleteSegmentRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The segment ID to delete.
+ @return ApiDeleteSegmentRequest
 */
 func (a *SegmentsAPIService) DeleteSegment(ctx context.Context, id string) ApiDeleteSegmentRequest {
 	return ApiDeleteSegmentRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
+		ctx: ctx,
+		id: id,
 	}
 }
 
 // Execute executes the request
 func (a *SegmentsAPIService) DeleteSegmentExecute(r ApiDeleteSegmentRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodDelete
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SegmentsAPIService.DeleteSegment")
@@ -284,8 +284,8 @@ func (a *SegmentsAPIService) DeleteSegmentExecute(r ApiDeleteSegmentRequest) (*h
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -295,8 +295,8 @@ func (a *SegmentsAPIService) DeleteSegmentExecute(r ApiDeleteSegmentRequest) (*h
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -306,8 +306,8 @@ func (a *SegmentsAPIService) DeleteSegmentExecute(r ApiDeleteSegmentRequest) (*h
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -317,8 +317,8 @@ func (a *SegmentsAPIService) DeleteSegmentExecute(r ApiDeleteSegmentRequest) (*h
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -328,8 +328,8 @@ func (a *SegmentsAPIService) DeleteSegmentExecute(r ApiDeleteSegmentRequest) (*h
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -339,8 +339,8 @@ func (a *SegmentsAPIService) DeleteSegmentExecute(r ApiDeleteSegmentRequest) (*h
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -349,9 +349,9 @@ func (a *SegmentsAPIService) DeleteSegmentExecute(r ApiDeleteSegmentRequest) (*h
 }
 
 type ApiGetSegmentRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *SegmentsAPIService
-	id         string
+	id string
 }
 
 func (r ApiGetSegmentRequest) Execute() (*Segment, *http.Response, error) {
@@ -364,27 +364,26 @@ GetSegment Get Segment by ID
 This API returns the segment specified by the given ID.
 A token with ORG_ADMIN or API authority is required to call this API.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The segment ID to retrieve.
-	@return ApiGetSegmentRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The segment ID to retrieve.
+ @return ApiGetSegmentRequest
 */
 func (a *SegmentsAPIService) GetSegment(ctx context.Context, id string) ApiGetSegmentRequest {
 	return ApiGetSegmentRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
+		ctx: ctx,
+		id: id,
 	}
 }
 
 // Execute executes the request
-//
-//	@return Segment
+//  @return Segment
 func (a *SegmentsAPIService) GetSegmentExecute(r ApiGetSegmentRequest) (*Segment, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Segment
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Segment
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SegmentsAPIService.GetSegment")
@@ -445,8 +444,8 @@ func (a *SegmentsAPIService) GetSegmentExecute(r ApiGetSegmentRequest) (*Segment
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -456,8 +455,8 @@ func (a *SegmentsAPIService) GetSegmentExecute(r ApiGetSegmentRequest) (*Segment
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -467,8 +466,8 @@ func (a *SegmentsAPIService) GetSegmentExecute(r ApiGetSegmentRequest) (*Segment
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -478,8 +477,8 @@ func (a *SegmentsAPIService) GetSegmentExecute(r ApiGetSegmentRequest) (*Segment
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -489,8 +488,8 @@ func (a *SegmentsAPIService) GetSegmentExecute(r ApiGetSegmentRequest) (*Segment
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -500,8 +499,8 @@ func (a *SegmentsAPIService) GetSegmentExecute(r ApiGetSegmentRequest) (*Segment
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -519,11 +518,11 @@ func (a *SegmentsAPIService) GetSegmentExecute(r ApiGetSegmentRequest) (*Segment
 }
 
 type ApiListSegmentsRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService *SegmentsAPIService
-	limit      *int32
-	offset     *int32
-	count      *bool
+	limit *int32
+	offset *int32
+	count *bool
 }
 
 // Max number of results to return. See [V3 API Standard Collection Parameters](https://developer.sailpoint.com/idn/api/standard-collection-parameters) for more information.
@@ -551,28 +550,27 @@ func (r ApiListSegmentsRequest) Execute() ([]Segment, *http.Response, error) {
 /*
 ListSegments List Segments
 
-This API returns a list of all segments.
+This API returns a list of all segments. 
 A token with ORG_ADMIN or API authority is required to call this API.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListSegmentsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiListSegmentsRequest
 */
 func (a *SegmentsAPIService) ListSegments(ctx context.Context) ApiListSegmentsRequest {
 	return ApiListSegmentsRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return []Segment
+//  @return []Segment
 func (a *SegmentsAPIService) ListSegmentsExecute(r ApiListSegmentsRequest) ([]Segment, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue []Segment
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []Segment
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SegmentsAPIService.ListSegments")
@@ -650,8 +648,8 @@ func (a *SegmentsAPIService) ListSegmentsExecute(r ApiListSegmentsRequest) ([]Se
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -661,8 +659,8 @@ func (a *SegmentsAPIService) ListSegmentsExecute(r ApiListSegmentsRequest) ([]Se
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -672,8 +670,8 @@ func (a *SegmentsAPIService) ListSegmentsExecute(r ApiListSegmentsRequest) ([]Se
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -683,8 +681,8 @@ func (a *SegmentsAPIService) ListSegmentsExecute(r ApiListSegmentsRequest) ([]Se
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -694,8 +692,8 @@ func (a *SegmentsAPIService) ListSegmentsExecute(r ApiListSegmentsRequest) ([]Se
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -713,13 +711,13 @@ func (a *SegmentsAPIService) ListSegmentsExecute(r ApiListSegmentsRequest) ([]Se
 }
 
 type ApiPatchSegmentRequest struct {
-	ctx         context.Context
-	ApiService  *SegmentsAPIService
-	id          string
+	ctx context.Context
+	ApiService *SegmentsAPIService
+	id string
 	requestBody *[]map[string]interface{}
 }
 
-// A list of segment update operations according to the [JSON Patch](https://tools.ietf.org/html/rfc6902) standard.  The following fields are patchable: * name * description * owner * visibilityCriteria * active
+// A list of segment update operations according to the [JSON Patch](https://tools.ietf.org/html/rfc6902) standard.  The following fields are patchable: * name * description * owner * visibilityCriteria * active 
 func (r ApiPatchSegmentRequest) RequestBody(requestBody []map[string]interface{}) ApiPatchSegmentRequest {
 	r.requestBody = &requestBody
 	return r
@@ -736,27 +734,26 @@ Use this API to update segment fields by using the [JSON Patch](https://tools.ie
 >**Note:** Changes to a segment may take some time to propagate to all identities.
 A token with ORG_ADMIN or API authority is required to call this API.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The segment ID to modify.
-	@return ApiPatchSegmentRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id The segment ID to modify.
+ @return ApiPatchSegmentRequest
 */
 func (a *SegmentsAPIService) PatchSegment(ctx context.Context, id string) ApiPatchSegmentRequest {
 	return ApiPatchSegmentRequest{
 		ApiService: a,
-		ctx:        ctx,
-		id:         id,
+		ctx: ctx,
+		id: id,
 	}
 }
 
 // Execute executes the request
-//
-//	@return Segment
+//  @return Segment
 func (a *SegmentsAPIService) PatchSegmentExecute(r ApiPatchSegmentRequest) (*Segment, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPatch
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *Segment
+		localVarHTTPMethod   = http.MethodPatch
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *Segment
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SegmentsAPIService.PatchSegment")
@@ -822,8 +819,8 @@ func (a *SegmentsAPIService) PatchSegmentExecute(r ApiPatchSegmentRequest) (*Seg
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -833,8 +830,8 @@ func (a *SegmentsAPIService) PatchSegmentExecute(r ApiPatchSegmentRequest) (*Seg
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -844,8 +841,8 @@ func (a *SegmentsAPIService) PatchSegmentExecute(r ApiPatchSegmentRequest) (*Seg
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -855,8 +852,8 @@ func (a *SegmentsAPIService) PatchSegmentExecute(r ApiPatchSegmentRequest) (*Seg
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -866,8 +863,8 @@ func (a *SegmentsAPIService) PatchSegmentExecute(r ApiPatchSegmentRequest) (*Seg
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -877,8 +874,8 @@ func (a *SegmentsAPIService) PatchSegmentExecute(r ApiPatchSegmentRequest) (*Seg
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -893,185 +890,4 @@ func (a *SegmentsAPIService) PatchSegmentExecute(r ApiPatchSegmentRequest) (*Seg
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiPatchSegmentAccessRequest struct {
-	ctx           context.Context
-	ApiService    *SegmentsAPIService
-	id            string
-	segmentAccess *SegmentAccess
-}
-
-// A list of segment update operations according to the [JSON Patch](https://tools.ietf.org/html/rfc6902) standard.  The following fields are patchable: * name * description * owner * visibilityCriteria * active
-func (r ApiPatchSegmentAccessRequest) SegmentAccess(segmentAccess SegmentAccess) ApiPatchSegmentAccessRequest {
-	r.segmentAccess = &segmentAccess
-	return r
-}
-
-func (r ApiPatchSegmentAccessRequest) Execute() error {
-	return r.ApiService.PatchSegmentAccessExecute(r)
-}
-
-/*
-PatchSegmentAccess Update SegmentAccess
-
-A token with ORG_ADMIN or API authority is required to call this API.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param id The segment ID to modify.
-	@return ApiPatchSegmentAccessRequest
-*/
-func (a *SegmentsAPIService) PatchSegmentAccess(ctx context.Context, id string) ApiPatchSegmentAccessRequest {
-	return ApiPatchSegmentAccessRequest{
-		ApiService: a,
-		ctx:        ctx,
-		id:         id,
-	}
-}
-
-// Execute executes the request
-//
-//	@return SegmentAccess
-func (a *SegmentsAPIService) PatchSegmentAccessExecute(r ApiPatchSegmentAccessRequest) error {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *SegmentAccess
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SegmentsAPIService.PatchSegment")
-	if err != nil {
-		return &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/segments/{id}/change-assignments"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.segmentAccess == nil {
-		return reportError("requestBody is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.segmentAccess
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ErrorResponseDto
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-			return newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ListAccessProfiles401Response
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-			return newErr
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
-			var v ErrorResponseDto
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-			return newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v ErrorResponseDto
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-			return newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ListAccessProfiles429Response
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-			return newErr
-		}
-		if localVarHTTPResponse.StatusCode == 500 {
-			var v ErrorResponseDto
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-		}
-		return newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return newErr
-	}
-
-	return nil
 }

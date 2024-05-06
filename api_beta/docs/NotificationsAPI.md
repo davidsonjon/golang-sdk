@@ -39,7 +39,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -105,7 +105,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -171,7 +171,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -237,7 +237,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -301,7 +301,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -369,7 +369,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -430,7 +430,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -479,79 +479,6 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-<<<<<<< HEAD
-## GetNotificationPreference
-
-> PreferencesDto GetNotificationPreference(ctx, key).Execute()
-
-Get Notification Preferences for tenant.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
-)
-
-func main() {
-    key := "key_example" // string | The notification key.
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsAPI.GetNotificationPreference(context.Background(), key).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.GetNotificationPreference``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetNotificationPreference`: PreferencesDto
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.GetNotificationPreference`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**key** | **string** | The notification key. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetNotificationPreferenceRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**PreferencesDto**](PreferencesDto.md)
-
-### Authorization
-
-[UserContextAuth](../README.md#UserContextAuth), [UserContextAuth](../README.md#UserContextAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-=======
->>>>>>> main
 ## GetNotificationTemplate
 
 > []TemplateDto GetNotificationTemplate(ctx, id).Execute()
@@ -569,7 +496,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -639,7 +566,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -700,7 +627,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -774,7 +701,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -835,7 +762,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -905,7 +832,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -975,7 +902,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -1024,81 +951,6 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-<<<<<<< HEAD
-## PutNotificationPreference
-
-> PreferencesDto PutNotificationPreference(ctx, key).PreferencesDto(preferencesDto).Execute()
-
-Overwrite the preferences for the given notification key.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
-)
-
-func main() {
-    key := "key_example" // string | The notification key.
-    preferencesDto := *openapiclient.NewPreferencesDto() // PreferencesDto | 
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsAPI.PutNotificationPreference(context.Background(), key).PreferencesDto(preferencesDto).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.PutNotificationPreference``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PutNotificationPreference`: PreferencesDto
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.PutNotificationPreference`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**key** | **string** | The notification key. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPutNotificationPreferenceRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **preferencesDto** | [**PreferencesDto**](PreferencesDto.md) |  | 
-
-### Return type
-
-[**PreferencesDto**](PreferencesDto.md)
-
-### Authorization
-
-[UserContextAuth](../README.md#UserContextAuth), [UserContextAuth](../README.md#UserContextAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-=======
->>>>>>> main
 ## SendTestNotification
 
 > SendTestNotification(ctx).SendTestNotificationRequestDto(sendTestNotificationRequestDto).Execute()
@@ -1116,7 +968,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -1161,3 +1013,4 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
+

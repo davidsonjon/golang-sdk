@@ -22,7 +22,6 @@ type JsonPatchOperationValue struct {
 	Int32 *int32
 	MapmapOfStringinterface *map[string]interface{}
 	String *string
-	Bool *bool
 }
 
 // []ArrayInnerAsJsonPatchOperationValue is a convenience function that returns []ArrayInner wrapped in JsonPatchOperationValue
@@ -60,12 +59,6 @@ func StringAsJsonPatchOperationValue(v *string) JsonPatchOperationValue {
 	}
 }
 
-// boolAsJsonPatchOperationValue is a convenience function that returns bool wrapped in JsonPatchOperationValue
-func BoolAsJsonPatchOperationValue(v *bool) JsonPatchOperationValue {
-	return JsonPatchOperationValue{
-		Bool: v,
-	}
-}
 
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *JsonPatchOperationValue) UnmarshalJSON(data []byte) error {
@@ -136,19 +129,6 @@ func (dst *JsonPatchOperationValue) UnmarshalJSON(data []byte) error {
 		dst.String = nil
 	}
 
-	// try to unmarshal data into String
-	err = newStrictDecoder(data).Decode(&dst.Bool)
-	if err == nil {
-		jsonBool, _ := json.Marshal(dst.Bool)
-		if string(jsonBool) == "{}" { // empty struct
-			dst.Bool = nil
-		} else {
-			match++
-		}
-	} else {
-		dst.Bool = nil
-	}
-
 	if match > 1 { // more than 1 match
 		// reset to nil
 		dst.ArrayOfArrayInner = nil
@@ -156,7 +136,6 @@ func (dst *JsonPatchOperationValue) UnmarshalJSON(data []byte) error {
 		dst.Int32 = nil
 		dst.MapmapOfStringinterface = nil
 		dst.String = nil
-		dst.Bool = nil
 
 		return fmt.Errorf("data matches more than one schema in oneOf(JsonPatchOperationValue)")
 	} else if match == 1 {
@@ -188,10 +167,6 @@ func (src JsonPatchOperationValue) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.String)
 	}
 
-	if src.Bool != nil {
-		return json.Marshal(&src.Bool)
-	}
-
 	return nil, nil // no data in oneOf schemas
 }
 
@@ -218,10 +193,6 @@ func (obj *JsonPatchOperationValue) GetActualInstance() (interface{}) {
 
 	if obj.String != nil {
 		return obj.String
-	}
-
-	if obj.Bool != nil {
-		return obj.Bool
 	}
 
 	// all schemas are nil
@@ -263,3 +234,5 @@ func (v *NullableJsonPatchOperationValue) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

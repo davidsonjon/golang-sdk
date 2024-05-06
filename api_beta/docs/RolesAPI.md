@@ -15,75 +15,6 @@ Method | HTTP request | Description
 
 
 
-<<<<<<< HEAD
-## BulkDeleteRoles
-
-> TaskResultDto BulkDeleteRoles(ctx).RoleBulkDeleteRequest(roleBulkDeleteRequest).Execute()
-
-Delete Role(s)
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
-)
-
-func main() {
-    roleBulkDeleteRequest := *openapiclient.NewRoleBulkDeleteRequest([]string{"RoleIds_example"}) // RoleBulkDeleteRequest | 
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RolesAPI.BulkDeleteRoles(context.Background()).RoleBulkDeleteRequest(roleBulkDeleteRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RolesAPI.BulkDeleteRoles``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `BulkDeleteRoles`: TaskResultDto
-    fmt.Fprintf(os.Stdout, "Response from `RolesAPI.BulkDeleteRoles`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiBulkDeleteRolesRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **roleBulkDeleteRequest** | [**RoleBulkDeleteRequest**](RoleBulkDeleteRequest.md) |  | 
-
-### Return type
-
-[**TaskResultDto**](TaskResultDto.md)
-
-### Authorization
-
-[UserContextAuth](../README.md#UserContextAuth), [UserContextAuth](../README.md#UserContextAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-=======
->>>>>>> main
 ## CreateRole
 
 > Role CreateRole(ctx).Role(role).Execute()
@@ -101,7 +32,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -167,7 +98,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -233,7 +164,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -301,7 +232,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -369,7 +300,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -449,7 +380,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -529,7 +460,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -609,7 +540,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -662,3 +593,4 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
+

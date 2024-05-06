@@ -27,7 +27,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/davidsonjon/v2"
 )
 
 func main() {
@@ -97,7 +97,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/davidsonjon/v2"
 )
 
 func main() {
@@ -163,7 +163,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/davidsonjon/v2"
 )
 
 func main() {

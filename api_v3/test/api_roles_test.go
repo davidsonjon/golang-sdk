@@ -13,7 +13,7 @@ import (
 	"context"
 	"testing"
 
-	openapiclient "github.com/davidsonjon/golang-sdk/v2"
+	openapiclient "github.com/sailpoint-oss/davidsonjon/v2"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
