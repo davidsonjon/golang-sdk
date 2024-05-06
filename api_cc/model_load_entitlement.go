@@ -1,4 +1,4 @@
-package api_beta
+package api_cc
 
 // checks if the LoadEntitlementResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &LoadEntitlementResponse{}

@@ -1,4 +1,4 @@
-package api_beta
+package api_cc
 
 import (
 	"context"
