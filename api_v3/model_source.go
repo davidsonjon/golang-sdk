@@ -1,7 +1,7 @@
 /*
-IdentityNow V3 API
+Identity Security Cloud V3 API
 
-Use these APIs to interact with the IdentityNow platform to achieve repeatable, automated processes with greater scalability. We encourage you to join the SailPoint Developer Community forum at https://developer.sailpoint.com/discuss to connect with other developers using our APIs.
+Use these APIs to interact with the Identity Security Cloud platform to achieve repeatable, automated processes with greater scalability. We encourage you to join the SailPoint Developer Community forum at https://developer.sailpoint.com/discuss to connect with other developers using our APIs.
 
 API version: 3.0.0
 */
@@ -28,18 +28,18 @@ type Source struct {
 	// Human-readable description of the source
 	Description *string `json:"description,omitempty"`
 	Owner SourceOwner `json:"owner"`
-	Cluster *SourceCluster `json:"cluster,omitempty"`
-	AccountCorrelationConfig *SourceAccountCorrelationConfig `json:"accountCorrelationConfig,omitempty"`
-	AccountCorrelationRule *SourceAccountCorrelationRule `json:"accountCorrelationRule,omitempty"`
-	ManagerCorrelationMapping *ManagerCorrelationMapping `json:"managerCorrelationMapping,omitempty"`
-	ManagerCorrelationRule *SourceManagerCorrelationRule `json:"managerCorrelationRule,omitempty"`
-	BeforeProvisioningRule *SourceBeforeProvisioningRule `json:"beforeProvisioningRule,omitempty"`
+	Cluster NullableSourceCluster `json:"cluster,omitempty"`
+	AccountCorrelationConfig NullableSourceAccountCorrelationConfig `json:"accountCorrelationConfig,omitempty"`
+	AccountCorrelationRule NullableSourceAccountCorrelationRule `json:"accountCorrelationRule,omitempty"`
+	ManagerCorrelationMapping *SourceManagerCorrelationMapping `json:"managerCorrelationMapping,omitempty"`
+	ManagerCorrelationRule NullableSourceManagerCorrelationRule `json:"managerCorrelationRule,omitempty"`
+	BeforeProvisioningRule NullableSourceBeforeProvisioningRule `json:"beforeProvisioningRule,omitempty"`
 	// List of references to Schema objects
 	Schemas []SourceSchemasInner `json:"schemas,omitempty"`
 	// List of references to the associated PasswordPolicy objects.
 	PasswordPolicies []SourcePasswordPoliciesInner `json:"passwordPolicies,omitempty"`
-	// Optional features that can be supported by a source.
-	Features []SourceFeature `json:"features,omitempty"`
+	// Optional features that can be supported by a source. Modifying the features array may cause source configuration errors that are unsupportable. It is recommended to not modify this array for SailPoint supported connectors. * AUTHENTICATE: The source supports pass-through authentication. * COMPOSITE: The source supports composite source creation. * DIRECT_PERMISSIONS: The source supports returning DirectPermissions. * DISCOVER_SCHEMA: The source supports discovering schemas for users and groups. * ENABLE The source supports reading if an account is enabled or disabled. * MANAGER_LOOKUP: The source supports looking up managers as they are encountered in a feed. This is the opposite of NO_RANDOM_ACCESS. * NO_RANDOM_ACCESS: The source does not support random access and the getObject() methods should not be called and expected to perform. * PROXY: The source can serve as a proxy for another source. When an source has a proxy, all connector calls made with that source are redirected through the connector for the proxy source. * SEARCH * TEMPLATE * UNLOCK: The source supports reading if an account is locked or unlocked. * UNSTRUCTURED_TARGETS: The source supports returning unstructured Targets. * SHAREPOINT_TARGET: The source supports returning unstructured Target data for SharePoint. It will be typically used by AD, LDAP sources. * PROVISIONING: The source can both read and write accounts. Having this feature implies that the provision() method is implemented. It also means that direct and target permissions can also be provisioned if they can be returned by aggregation. * GROUP_PROVISIONING: The source can both read and write groups. Having this feature implies that the provision() method is implemented. * SYNC_PROVISIONING: The source can provision accounts synchronously. * PASSWORD: The source can provision password changes. Since sources can never read passwords, this is should only be used in conjunction with the PROVISIONING feature. * CURRENT_PASSWORD: Some source types support verification of the current password * ACCOUNT_ONLY_REQUEST: The source supports requesting accounts without entitlements. * ADDITIONAL_ACCOUNT_REQUEST: The source supports requesting additional accounts. * NO_AGGREGATION: A source that does not support aggregation. * GROUPS_HAVE_MEMBERS: The source models group memberships with a member attribute on the group object rather than a groups attribute on the account object. This effects the implementation of delta account aggregation. * NO_PERMISSIONS_PROVISIONING: Indicates that the connector cannot provision direct or target permissions for accounts. When DIRECT_PERMISSIONS and PROVISIONING features are present, it is assumed that the connector can also provision direct permissions. This feature disables that assumption and causes permission request to be converted to work items for accounts. * NO_GROUP_PERMISSIONS_PROVISIONING: Indicates that the connector cannot provision direct or target permissions for groups. When DIRECT_PERMISSIONS and PROVISIONING features are present, it is assumed that the connector can also provision direct permissions. This feature disables that assumption and causes permission request to be converted to work items for groups. * NO_UNSTRUCTURED_TARGETS_PROVISIONING: This string will be replaced by NO_GROUP_PERMISSIONS_PROVISIONING and NO_PERMISSIONS_PROVISIONING. * NO_DIRECT_PERMISSIONS_PROVISIONING: This string will be replaced by NO_GROUP_PERMISSIONS_PROVISIONING and NO_PERMISSIONS_PROVISIONING. * USES_UUID: Connectivity 2.0 flag used to indicate that the connector supports a compound naming structure. * PREFER_UUID: Used in ISC Provisioning AND Aggregation to decide if it should prefer account.uuid to account.nativeIdentity when data is read in through aggregation OR pushed out through provisioning. * ARM_SECURITY_EXTRACT: Indicates the application supports Security extracts for ARM * ARM_UTILIZATION_EXTRACT: Indicates the application supports Utilization extracts for ARM * ARM_CHANGELOG_EXTRACT: Indicates the application supports Change-log extracts for ARM
+	Features []string `json:"features,omitempty"`
 	// Specifies the type of system being managed e.g. Active Directory, Workday, etc.. If you are creating a Delimited File source, you must set the `provisionasCsv` query parameter to `true`. 
 	Type *string `json:"type,omitempty"`
 	// Connector script name.
@@ -52,7 +52,7 @@ type Source struct {
 	DeleteThreshold *int32 `json:"deleteThreshold,omitempty"`
 	// When true indicates the source is referenced by an IdentityProfile.
 	Authoritative *bool `json:"authoritative,omitempty"`
-	ManagementWorkgroup *SourceManagementWorkgroup `json:"managementWorkgroup,omitempty"`
+	ManagementWorkgroup NullableSourceManagementWorkgroup `json:"managementWorkgroup,omitempty"`
 	// When true indicates a healthy source
 	Healthy *bool `json:"healthy,omitempty"`
 	// A status identifier, giving specific information on why a source is healthy or not
@@ -71,6 +71,10 @@ type Source struct {
 	Created *time.Time `json:"created,omitempty"`
 	// The date-time when the source was last modified
 	Modified *time.Time `json:"modified,omitempty"`
+	// Enables credential provider for this source. If credentialProvider is turned on  then source can use credential provider(s) to fetch credentials.
+	CredentialProviderEnabled *bool `json:"credentialProviderEnabled,omitempty"`
+	// The category of source (e.g. null, CredentialProvider)
+	Category NullableString `json:"category,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -89,6 +93,8 @@ func NewSource(name string, owner SourceOwner, connector string) *Source {
 	this.Authoritative = &authoritative
 	var healthy bool = false
 	this.Healthy = &healthy
+	var credentialProviderEnabled bool = false
+	this.CredentialProviderEnabled = &credentialProviderEnabled
 	return &this
 }
 
@@ -101,6 +107,8 @@ func NewSourceWithDefaults() *Source {
 	this.Authoritative = &authoritative
 	var healthy bool = false
 	this.Healthy = &healthy
+	var credentialProviderEnabled bool = false
+	this.CredentialProviderEnabled = &credentialProviderEnabled
 	return &this
 }
 
@@ -216,106 +224,136 @@ func (o *Source) SetOwner(v SourceOwner) {
 	o.Owner = v
 }
 
-// GetCluster returns the Cluster field value if set, zero value otherwise.
+// GetCluster returns the Cluster field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Source) GetCluster() SourceCluster {
-	if o == nil || isNil(o.Cluster) {
+	if o == nil || isNil(o.Cluster.Get()) {
 		var ret SourceCluster
 		return ret
 	}
-	return *o.Cluster
+	return *o.Cluster.Get()
 }
 
 // GetClusterOk returns a tuple with the Cluster field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Source) GetClusterOk() (*SourceCluster, bool) {
-	if o == nil || isNil(o.Cluster) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Cluster, true
+	return o.Cluster.Get(), o.Cluster.IsSet()
 }
 
 // HasCluster returns a boolean if a field has been set.
 func (o *Source) HasCluster() bool {
-	if o != nil && !isNil(o.Cluster) {
+	if o != nil && o.Cluster.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCluster gets a reference to the given SourceCluster and assigns it to the Cluster field.
+// SetCluster gets a reference to the given NullableSourceCluster and assigns it to the Cluster field.
 func (o *Source) SetCluster(v SourceCluster) {
-	o.Cluster = &v
+	o.Cluster.Set(&v)
+}
+// SetClusterNil sets the value for Cluster to be an explicit nil
+func (o *Source) SetClusterNil() {
+	o.Cluster.Set(nil)
 }
 
-// GetAccountCorrelationConfig returns the AccountCorrelationConfig field value if set, zero value otherwise.
+// UnsetCluster ensures that no value is present for Cluster, not even an explicit nil
+func (o *Source) UnsetCluster() {
+	o.Cluster.Unset()
+}
+
+// GetAccountCorrelationConfig returns the AccountCorrelationConfig field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Source) GetAccountCorrelationConfig() SourceAccountCorrelationConfig {
-	if o == nil || isNil(o.AccountCorrelationConfig) {
+	if o == nil || isNil(o.AccountCorrelationConfig.Get()) {
 		var ret SourceAccountCorrelationConfig
 		return ret
 	}
-	return *o.AccountCorrelationConfig
+	return *o.AccountCorrelationConfig.Get()
 }
 
 // GetAccountCorrelationConfigOk returns a tuple with the AccountCorrelationConfig field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Source) GetAccountCorrelationConfigOk() (*SourceAccountCorrelationConfig, bool) {
-	if o == nil || isNil(o.AccountCorrelationConfig) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AccountCorrelationConfig, true
+	return o.AccountCorrelationConfig.Get(), o.AccountCorrelationConfig.IsSet()
 }
 
 // HasAccountCorrelationConfig returns a boolean if a field has been set.
 func (o *Source) HasAccountCorrelationConfig() bool {
-	if o != nil && !isNil(o.AccountCorrelationConfig) {
+	if o != nil && o.AccountCorrelationConfig.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetAccountCorrelationConfig gets a reference to the given SourceAccountCorrelationConfig and assigns it to the AccountCorrelationConfig field.
+// SetAccountCorrelationConfig gets a reference to the given NullableSourceAccountCorrelationConfig and assigns it to the AccountCorrelationConfig field.
 func (o *Source) SetAccountCorrelationConfig(v SourceAccountCorrelationConfig) {
-	o.AccountCorrelationConfig = &v
+	o.AccountCorrelationConfig.Set(&v)
+}
+// SetAccountCorrelationConfigNil sets the value for AccountCorrelationConfig to be an explicit nil
+func (o *Source) SetAccountCorrelationConfigNil() {
+	o.AccountCorrelationConfig.Set(nil)
 }
 
-// GetAccountCorrelationRule returns the AccountCorrelationRule field value if set, zero value otherwise.
+// UnsetAccountCorrelationConfig ensures that no value is present for AccountCorrelationConfig, not even an explicit nil
+func (o *Source) UnsetAccountCorrelationConfig() {
+	o.AccountCorrelationConfig.Unset()
+}
+
+// GetAccountCorrelationRule returns the AccountCorrelationRule field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Source) GetAccountCorrelationRule() SourceAccountCorrelationRule {
-	if o == nil || isNil(o.AccountCorrelationRule) {
+	if o == nil || isNil(o.AccountCorrelationRule.Get()) {
 		var ret SourceAccountCorrelationRule
 		return ret
 	}
-	return *o.AccountCorrelationRule
+	return *o.AccountCorrelationRule.Get()
 }
 
 // GetAccountCorrelationRuleOk returns a tuple with the AccountCorrelationRule field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Source) GetAccountCorrelationRuleOk() (*SourceAccountCorrelationRule, bool) {
-	if o == nil || isNil(o.AccountCorrelationRule) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AccountCorrelationRule, true
+	return o.AccountCorrelationRule.Get(), o.AccountCorrelationRule.IsSet()
 }
 
 // HasAccountCorrelationRule returns a boolean if a field has been set.
 func (o *Source) HasAccountCorrelationRule() bool {
-	if o != nil && !isNil(o.AccountCorrelationRule) {
+	if o != nil && o.AccountCorrelationRule.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetAccountCorrelationRule gets a reference to the given SourceAccountCorrelationRule and assigns it to the AccountCorrelationRule field.
+// SetAccountCorrelationRule gets a reference to the given NullableSourceAccountCorrelationRule and assigns it to the AccountCorrelationRule field.
 func (o *Source) SetAccountCorrelationRule(v SourceAccountCorrelationRule) {
-	o.AccountCorrelationRule = &v
+	o.AccountCorrelationRule.Set(&v)
+}
+// SetAccountCorrelationRuleNil sets the value for AccountCorrelationRule to be an explicit nil
+func (o *Source) SetAccountCorrelationRuleNil() {
+	o.AccountCorrelationRule.Set(nil)
+}
+
+// UnsetAccountCorrelationRule ensures that no value is present for AccountCorrelationRule, not even an explicit nil
+func (o *Source) UnsetAccountCorrelationRule() {
+	o.AccountCorrelationRule.Unset()
 }
 
 // GetManagerCorrelationMapping returns the ManagerCorrelationMapping field value if set, zero value otherwise.
-func (o *Source) GetManagerCorrelationMapping() ManagerCorrelationMapping {
+func (o *Source) GetManagerCorrelationMapping() SourceManagerCorrelationMapping {
 	if o == nil || isNil(o.ManagerCorrelationMapping) {
-		var ret ManagerCorrelationMapping
+		var ret SourceManagerCorrelationMapping
 		return ret
 	}
 	return *o.ManagerCorrelationMapping
@@ -323,7 +361,7 @@ func (o *Source) GetManagerCorrelationMapping() ManagerCorrelationMapping {
 
 // GetManagerCorrelationMappingOk returns a tuple with the ManagerCorrelationMapping field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Source) GetManagerCorrelationMappingOk() (*ManagerCorrelationMapping, bool) {
+func (o *Source) GetManagerCorrelationMappingOk() (*SourceManagerCorrelationMapping, bool) {
 	if o == nil || isNil(o.ManagerCorrelationMapping) {
 		return nil, false
 	}
@@ -339,73 +377,93 @@ func (o *Source) HasManagerCorrelationMapping() bool {
 	return false
 }
 
-// SetManagerCorrelationMapping gets a reference to the given ManagerCorrelationMapping and assigns it to the ManagerCorrelationMapping field.
-func (o *Source) SetManagerCorrelationMapping(v ManagerCorrelationMapping) {
+// SetManagerCorrelationMapping gets a reference to the given SourceManagerCorrelationMapping and assigns it to the ManagerCorrelationMapping field.
+func (o *Source) SetManagerCorrelationMapping(v SourceManagerCorrelationMapping) {
 	o.ManagerCorrelationMapping = &v
 }
 
-// GetManagerCorrelationRule returns the ManagerCorrelationRule field value if set, zero value otherwise.
+// GetManagerCorrelationRule returns the ManagerCorrelationRule field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Source) GetManagerCorrelationRule() SourceManagerCorrelationRule {
-	if o == nil || isNil(o.ManagerCorrelationRule) {
+	if o == nil || isNil(o.ManagerCorrelationRule.Get()) {
 		var ret SourceManagerCorrelationRule
 		return ret
 	}
-	return *o.ManagerCorrelationRule
+	return *o.ManagerCorrelationRule.Get()
 }
 
 // GetManagerCorrelationRuleOk returns a tuple with the ManagerCorrelationRule field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Source) GetManagerCorrelationRuleOk() (*SourceManagerCorrelationRule, bool) {
-	if o == nil || isNil(o.ManagerCorrelationRule) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ManagerCorrelationRule, true
+	return o.ManagerCorrelationRule.Get(), o.ManagerCorrelationRule.IsSet()
 }
 
 // HasManagerCorrelationRule returns a boolean if a field has been set.
 func (o *Source) HasManagerCorrelationRule() bool {
-	if o != nil && !isNil(o.ManagerCorrelationRule) {
+	if o != nil && o.ManagerCorrelationRule.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetManagerCorrelationRule gets a reference to the given SourceManagerCorrelationRule and assigns it to the ManagerCorrelationRule field.
+// SetManagerCorrelationRule gets a reference to the given NullableSourceManagerCorrelationRule and assigns it to the ManagerCorrelationRule field.
 func (o *Source) SetManagerCorrelationRule(v SourceManagerCorrelationRule) {
-	o.ManagerCorrelationRule = &v
+	o.ManagerCorrelationRule.Set(&v)
+}
+// SetManagerCorrelationRuleNil sets the value for ManagerCorrelationRule to be an explicit nil
+func (o *Source) SetManagerCorrelationRuleNil() {
+	o.ManagerCorrelationRule.Set(nil)
 }
 
-// GetBeforeProvisioningRule returns the BeforeProvisioningRule field value if set, zero value otherwise.
+// UnsetManagerCorrelationRule ensures that no value is present for ManagerCorrelationRule, not even an explicit nil
+func (o *Source) UnsetManagerCorrelationRule() {
+	o.ManagerCorrelationRule.Unset()
+}
+
+// GetBeforeProvisioningRule returns the BeforeProvisioningRule field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Source) GetBeforeProvisioningRule() SourceBeforeProvisioningRule {
-	if o == nil || isNil(o.BeforeProvisioningRule) {
+	if o == nil || isNil(o.BeforeProvisioningRule.Get()) {
 		var ret SourceBeforeProvisioningRule
 		return ret
 	}
-	return *o.BeforeProvisioningRule
+	return *o.BeforeProvisioningRule.Get()
 }
 
 // GetBeforeProvisioningRuleOk returns a tuple with the BeforeProvisioningRule field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Source) GetBeforeProvisioningRuleOk() (*SourceBeforeProvisioningRule, bool) {
-	if o == nil || isNil(o.BeforeProvisioningRule) {
+	if o == nil {
 		return nil, false
 	}
-	return o.BeforeProvisioningRule, true
+	return o.BeforeProvisioningRule.Get(), o.BeforeProvisioningRule.IsSet()
 }
 
 // HasBeforeProvisioningRule returns a boolean if a field has been set.
 func (o *Source) HasBeforeProvisioningRule() bool {
-	if o != nil && !isNil(o.BeforeProvisioningRule) {
+	if o != nil && o.BeforeProvisioningRule.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetBeforeProvisioningRule gets a reference to the given SourceBeforeProvisioningRule and assigns it to the BeforeProvisioningRule field.
+// SetBeforeProvisioningRule gets a reference to the given NullableSourceBeforeProvisioningRule and assigns it to the BeforeProvisioningRule field.
 func (o *Source) SetBeforeProvisioningRule(v SourceBeforeProvisioningRule) {
-	o.BeforeProvisioningRule = &v
+	o.BeforeProvisioningRule.Set(&v)
+}
+// SetBeforeProvisioningRuleNil sets the value for BeforeProvisioningRule to be an explicit nil
+func (o *Source) SetBeforeProvisioningRuleNil() {
+	o.BeforeProvisioningRule.Set(nil)
+}
+
+// UnsetBeforeProvisioningRule ensures that no value is present for BeforeProvisioningRule, not even an explicit nil
+func (o *Source) UnsetBeforeProvisioningRule() {
+	o.BeforeProvisioningRule.Unset()
 }
 
 // GetSchemas returns the Schemas field value if set, zero value otherwise.
@@ -440,9 +498,9 @@ func (o *Source) SetSchemas(v []SourceSchemasInner) {
 	o.Schemas = v
 }
 
-// GetPasswordPolicies returns the PasswordPolicies field value if set, zero value otherwise.
+// GetPasswordPolicies returns the PasswordPolicies field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Source) GetPasswordPolicies() []SourcePasswordPoliciesInner {
-	if o == nil || isNil(o.PasswordPolicies) {
+	if o == nil {
 		var ret []SourcePasswordPoliciesInner
 		return ret
 	}
@@ -451,6 +509,7 @@ func (o *Source) GetPasswordPolicies() []SourcePasswordPoliciesInner {
 
 // GetPasswordPoliciesOk returns a tuple with the PasswordPolicies field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Source) GetPasswordPoliciesOk() ([]SourcePasswordPoliciesInner, bool) {
 	if o == nil || isNil(o.PasswordPolicies) {
 		return nil, false
@@ -460,7 +519,7 @@ func (o *Source) GetPasswordPoliciesOk() ([]SourcePasswordPoliciesInner, bool) {
 
 // HasPasswordPolicies returns a boolean if a field has been set.
 func (o *Source) HasPasswordPolicies() bool {
-	if o != nil && !isNil(o.PasswordPolicies) {
+	if o != nil && isNil(o.PasswordPolicies) {
 		return true
 	}
 
@@ -473,9 +532,9 @@ func (o *Source) SetPasswordPolicies(v []SourcePasswordPoliciesInner) {
 }
 
 // GetFeatures returns the Features field value if set, zero value otherwise.
-func (o *Source) GetFeatures() []SourceFeature {
+func (o *Source) GetFeatures() []string {
 	if o == nil || isNil(o.Features) {
-		var ret []SourceFeature
+		var ret []string
 		return ret
 	}
 	return o.Features
@@ -483,7 +542,7 @@ func (o *Source) GetFeatures() []SourceFeature {
 
 // GetFeaturesOk returns a tuple with the Features field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Source) GetFeaturesOk() ([]SourceFeature, bool) {
+func (o *Source) GetFeaturesOk() ([]string, bool) {
 	if o == nil || isNil(o.Features) {
 		return nil, false
 	}
@@ -499,8 +558,8 @@ func (o *Source) HasFeatures() bool {
 	return false
 }
 
-// SetFeatures gets a reference to the given []SourceFeature and assigns it to the Features field.
-func (o *Source) SetFeatures(v []SourceFeature) {
+// SetFeatures gets a reference to the given []string and assigns it to the Features field.
+func (o *Source) SetFeatures(v []string) {
 	o.Features = v
 }
 
@@ -688,36 +747,46 @@ func (o *Source) SetAuthoritative(v bool) {
 	o.Authoritative = &v
 }
 
-// GetManagementWorkgroup returns the ManagementWorkgroup field value if set, zero value otherwise.
+// GetManagementWorkgroup returns the ManagementWorkgroup field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Source) GetManagementWorkgroup() SourceManagementWorkgroup {
-	if o == nil || isNil(o.ManagementWorkgroup) {
+	if o == nil || isNil(o.ManagementWorkgroup.Get()) {
 		var ret SourceManagementWorkgroup
 		return ret
 	}
-	return *o.ManagementWorkgroup
+	return *o.ManagementWorkgroup.Get()
 }
 
 // GetManagementWorkgroupOk returns a tuple with the ManagementWorkgroup field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *Source) GetManagementWorkgroupOk() (*SourceManagementWorkgroup, bool) {
-	if o == nil || isNil(o.ManagementWorkgroup) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ManagementWorkgroup, true
+	return o.ManagementWorkgroup.Get(), o.ManagementWorkgroup.IsSet()
 }
 
 // HasManagementWorkgroup returns a boolean if a field has been set.
 func (o *Source) HasManagementWorkgroup() bool {
-	if o != nil && !isNil(o.ManagementWorkgroup) {
+	if o != nil && o.ManagementWorkgroup.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetManagementWorkgroup gets a reference to the given SourceManagementWorkgroup and assigns it to the ManagementWorkgroup field.
+// SetManagementWorkgroup gets a reference to the given NullableSourceManagementWorkgroup and assigns it to the ManagementWorkgroup field.
 func (o *Source) SetManagementWorkgroup(v SourceManagementWorkgroup) {
-	o.ManagementWorkgroup = &v
+	o.ManagementWorkgroup.Set(&v)
+}
+// SetManagementWorkgroupNil sets the value for ManagementWorkgroup to be an explicit nil
+func (o *Source) SetManagementWorkgroupNil() {
+	o.ManagementWorkgroup.Set(nil)
+}
+
+// UnsetManagementWorkgroup ensures that no value is present for ManagementWorkgroup, not even an explicit nil
+func (o *Source) UnsetManagementWorkgroup() {
+	o.ManagementWorkgroup.Unset()
 }
 
 // GetHealthy returns the Healthy field value if set, zero value otherwise.
@@ -1008,6 +1077,80 @@ func (o *Source) SetModified(v time.Time) {
 	o.Modified = &v
 }
 
+// GetCredentialProviderEnabled returns the CredentialProviderEnabled field value if set, zero value otherwise.
+func (o *Source) GetCredentialProviderEnabled() bool {
+	if o == nil || isNil(o.CredentialProviderEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.CredentialProviderEnabled
+}
+
+// GetCredentialProviderEnabledOk returns a tuple with the CredentialProviderEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Source) GetCredentialProviderEnabledOk() (*bool, bool) {
+	if o == nil || isNil(o.CredentialProviderEnabled) {
+		return nil, false
+	}
+	return o.CredentialProviderEnabled, true
+}
+
+// HasCredentialProviderEnabled returns a boolean if a field has been set.
+func (o *Source) HasCredentialProviderEnabled() bool {
+	if o != nil && !isNil(o.CredentialProviderEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetCredentialProviderEnabled gets a reference to the given bool and assigns it to the CredentialProviderEnabled field.
+func (o *Source) SetCredentialProviderEnabled(v bool) {
+	o.CredentialProviderEnabled = &v
+}
+
+// GetCategory returns the Category field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Source) GetCategory() string {
+	if o == nil || isNil(o.Category.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Category.Get()
+}
+
+// GetCategoryOk returns a tuple with the Category field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Source) GetCategoryOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Category.Get(), o.Category.IsSet()
+}
+
+// HasCategory returns a boolean if a field has been set.
+func (o *Source) HasCategory() bool {
+	if o != nil && o.Category.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetCategory gets a reference to the given NullableString and assigns it to the Category field.
+func (o *Source) SetCategory(v string) {
+	o.Category.Set(&v)
+}
+// SetCategoryNil sets the value for Category to be an explicit nil
+func (o *Source) SetCategoryNil() {
+	o.Category.Set(nil)
+}
+
+// UnsetCategory ensures that no value is present for Category, not even an explicit nil
+func (o *Source) UnsetCategory() {
+	o.Category.Unset()
+}
+
 func (o Source) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -1024,28 +1167,28 @@ func (o Source) ToMap() (map[string]interface{}, error) {
 		toSerialize["description"] = o.Description
 	}
 	toSerialize["owner"] = o.Owner
-	if !isNil(o.Cluster) {
-		toSerialize["cluster"] = o.Cluster
+	if o.Cluster.IsSet() {
+		toSerialize["cluster"] = o.Cluster.Get()
 	}
-	if !isNil(o.AccountCorrelationConfig) {
-		toSerialize["accountCorrelationConfig"] = o.AccountCorrelationConfig
+	if o.AccountCorrelationConfig.IsSet() {
+		toSerialize["accountCorrelationConfig"] = o.AccountCorrelationConfig.Get()
 	}
-	if !isNil(o.AccountCorrelationRule) {
-		toSerialize["accountCorrelationRule"] = o.AccountCorrelationRule
+	if o.AccountCorrelationRule.IsSet() {
+		toSerialize["accountCorrelationRule"] = o.AccountCorrelationRule.Get()
 	}
 	if !isNil(o.ManagerCorrelationMapping) {
 		toSerialize["managerCorrelationMapping"] = o.ManagerCorrelationMapping
 	}
-	if !isNil(o.ManagerCorrelationRule) {
-		toSerialize["managerCorrelationRule"] = o.ManagerCorrelationRule
+	if o.ManagerCorrelationRule.IsSet() {
+		toSerialize["managerCorrelationRule"] = o.ManagerCorrelationRule.Get()
 	}
-	if !isNil(o.BeforeProvisioningRule) {
-		toSerialize["beforeProvisioningRule"] = o.BeforeProvisioningRule
+	if o.BeforeProvisioningRule.IsSet() {
+		toSerialize["beforeProvisioningRule"] = o.BeforeProvisioningRule.Get()
 	}
 	if !isNil(o.Schemas) {
 		toSerialize["schemas"] = o.Schemas
 	}
-	if !isNil(o.PasswordPolicies) {
+	if o.PasswordPolicies != nil {
 		toSerialize["passwordPolicies"] = o.PasswordPolicies
 	}
 	if !isNil(o.Features) {
@@ -1067,8 +1210,8 @@ func (o Source) ToMap() (map[string]interface{}, error) {
 	if !isNil(o.Authoritative) {
 		toSerialize["authoritative"] = o.Authoritative
 	}
-	if !isNil(o.ManagementWorkgroup) {
-		toSerialize["managementWorkgroup"] = o.ManagementWorkgroup
+	if o.ManagementWorkgroup.IsSet() {
+		toSerialize["managementWorkgroup"] = o.ManagementWorkgroup.Get()
 	}
 	if !isNil(o.Healthy) {
 		toSerialize["healthy"] = o.Healthy
@@ -1096,6 +1239,12 @@ func (o Source) ToMap() (map[string]interface{}, error) {
 	}
 	if !isNil(o.Modified) {
 		toSerialize["modified"] = o.Modified
+	}
+	if !isNil(o.CredentialProviderEnabled) {
+		toSerialize["credentialProviderEnabled"] = o.CredentialProviderEnabled
+	}
+	if o.Category.IsSet() {
+		toSerialize["category"] = o.Category.Get()
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -1167,6 +1316,8 @@ func (o *Source) UnmarshalJSON(bytes []byte) (err error) {
 		delete(additionalProperties, "connectorImplementationId")
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "modified")
+		delete(additionalProperties, "credentialProviderEnabled")
+		delete(additionalProperties, "category")
 		o.AdditionalProperties = additionalProperties
 	}
 

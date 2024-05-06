@@ -1,7 +1,7 @@
 /*
-IdentityNow V3 API
+Identity Security Cloud V3 API
 
-Use these APIs to interact with the IdentityNow platform to achieve repeatable, automated processes with greater scalability. We encourage you to join the SailPoint Developer Community forum at https://developer.sailpoint.com/discuss to connect with other developers using our APIs.
+Use these APIs to interact with the Identity Security Cloud platform to achieve repeatable, automated processes with greater scalability. We encourage you to join the SailPoint Developer Community forum at https://developer.sailpoint.com/discuss to connect with other developers using our APIs.
 
 API version: 3.0.0
 */
@@ -546,7 +546,7 @@ func (r ApiListCampaignFiltersRequest) IncludeSystemFilters(includeSystemFilters
 	return r
 }
 
-func (r ApiListCampaignFiltersRequest) Execute() ([]CampaignFilterDetails, *http.Response, error) {
+func (r ApiListCampaignFiltersRequest) Execute() (*ListCampaignFilters200Response, *http.Response, error) {
 	return r.ApiService.ListCampaignFiltersExecute(r)
 }
 
@@ -568,13 +568,13 @@ func (a *CertificationCampaignFiltersAPIService) ListCampaignFilters(ctx context
 }
 
 // Execute executes the request
-//  @return []CampaignFilterDetails
-func (a *CertificationCampaignFiltersAPIService) ListCampaignFiltersExecute(r ApiListCampaignFiltersRequest) ([]CampaignFilterDetails, *http.Response, error) {
+//  @return ListCampaignFilters200Response
+func (a *CertificationCampaignFiltersAPIService) ListCampaignFiltersExecute(r ApiListCampaignFiltersRequest) (*ListCampaignFilters200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  []CampaignFilterDetails
+		localVarReturnValue  *ListCampaignFilters200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CertificationCampaignFiltersAPIService.ListCampaignFilters")

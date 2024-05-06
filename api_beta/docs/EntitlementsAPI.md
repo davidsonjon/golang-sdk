@@ -6,11 +6,13 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetEntitlement**](EntitlementsAPI.md#GetEntitlement) | **Get** /entitlements/{id} | Get an entitlement
 [**GetEntitlementRequestConfig**](EntitlementsAPI.md#GetEntitlementRequestConfig) | **Get** /entitlements/{id}/entitlement-request-config | Get Entitlement Request Config
+[**ImportEntitlements**](EntitlementsAPI.md#ImportEntitlements) | **Post** /entitlements/aggregate/sources/{id} | Aggregate Entitlements
 [**ListEntitlementChildren**](EntitlementsAPI.md#ListEntitlementChildren) | **Get** /entitlements/{id}/children | List of entitlements children
 [**ListEntitlementParents**](EntitlementsAPI.md#ListEntitlementParents) | **Get** /entitlements/{id}/parents | List of entitlements parents
 [**ListEntitlements**](EntitlementsAPI.md#ListEntitlements) | **Get** /entitlements | Gets a list of entitlements.
 [**PatchEntitlement**](EntitlementsAPI.md#PatchEntitlement) | **Patch** /entitlements/{id} | Patch an entitlement
 [**PutEntitlementRequestConfig**](EntitlementsAPI.md#PutEntitlementRequestConfig) | **Put** /entitlements/{id}/entitlement-request-config | Replace Entitlement Request Config
+[**ResetSourceEntitlements**](EntitlementsAPI.md#ResetSourceEntitlements) | **Post** /entitlements/reset/sources/{id} | Reset Source Entitlements
 [**UpdateEntitlementsInBulk**](EntitlementsAPI.md#UpdateEntitlementsInBulk) | **Post** /entitlements/bulk-update | Bulk update an entitlement list
 
 
@@ -148,6 +150,78 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ImportEntitlements
+
+> LoadEntitlementTask ImportEntitlements(ctx, id).CsvFile(csvFile).Execute()
+
+Aggregate Entitlements
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
+)
+
+func main() {
+    id := "ef38f94347e94562b5bb8424a56397d8" // string | Source Id
+    csvFile := os.NewFile(1234, "some_file") // *os.File | The CSV file containing the source entitlements to aggregate. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.EntitlementsAPI.ImportEntitlements(context.Background(), id).CsvFile(csvFile).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `EntitlementsAPI.ImportEntitlements``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ImportEntitlements`: LoadEntitlementTask
+    fmt.Fprintf(os.Stdout, "Response from `EntitlementsAPI.ImportEntitlements`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | Source Id | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiImportEntitlementsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **csvFile** | ***os.File** | The CSV file containing the source entitlements to aggregate. | 
+
+### Return type
+
+[**LoadEntitlementTask**](LoadEntitlementTask.md)
+
+### Authorization
+
+[UserContextAuth](../README.md#UserContextAuth), [UserContextAuth](../README.md#UserContextAuth)
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -534,6 +608,76 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ResetSourceEntitlements
+
+> EntitlementSourceResetBaseReferenceDto ResetSourceEntitlements(ctx, id).Execute()
+
+Reset Source Entitlements
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
+)
+
+func main() {
+    id := "2c91808a7813090a017814121919ecca" // string | ID of source for the entitlement reset
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.EntitlementsAPI.ResetSourceEntitlements(context.Background(), id).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `EntitlementsAPI.ResetSourceEntitlements``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ResetSourceEntitlements`: EntitlementSourceResetBaseReferenceDto
+    fmt.Fprintf(os.Stdout, "Response from `EntitlementsAPI.ResetSourceEntitlements`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | ID of source for the entitlement reset | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiResetSourceEntitlementsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**EntitlementSourceResetBaseReferenceDto**](EntitlementSourceResetBaseReferenceDto.md)
+
+### Authorization
+
+[UserContextAuth](../README.md#UserContextAuth), [UserContextAuth](../README.md#UserContextAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

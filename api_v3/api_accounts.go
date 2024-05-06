@@ -1,7 +1,7 @@
 /*
-IdentityNow V3 API
+Identity Security Cloud V3 API
 
-Use these APIs to interact with the IdentityNow platform to achieve repeatable, automated processes with greater scalability. We encourage you to join the SailPoint Developer Community forum at https://developer.sailpoint.com/discuss to connect with other developers using our APIs.
+Use these APIs to interact with the Identity Security Cloud platform to achieve repeatable, automated processes with greater scalability. We encourage you to join the SailPoint Developer Community forum at https://developer.sailpoint.com/discuss to connect with other developers using our APIs.
 
 API version: 3.0.0
 */
@@ -42,8 +42,10 @@ func (r ApiCreateAccountRequest) Execute() (*AccountsAsyncResult, *http.Response
 CreateAccount Create Account
 
 This API submits an account creation task and returns the task ID.  
-The `sourceId` where this account will be created must be included in the `attributes` object.
-A token with ORG_ADMIN authority is required to call this API.
+You must include the `sourceId` where the account will be created in the `attributes` object.
+This endpoint creates an account on the source record in your ISC tenant. This is useful for Flat File (`DelimitedFile`) type sources because it allows you to aggregate new accounts without needing to import a new CSV file every time. 
+However, if you use this endpoint to create an account for a Direct Connection type source, you must ensure that the account also exists on the target source.  The endpoint doesn't actually provision the account on the target source, which means that if the account doesn't also exist on the target source, an aggregation between the source and your tenant will remove it from your tenant. 
+A token with ORG_ADMIN, SOURCE_ADMIN, or SOURCE_SUBADMIN authority is required to call this API.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateAccountRequest
@@ -202,11 +204,14 @@ func (r ApiDeleteAccountRequest) Execute() (*AccountsAsyncResult, *http.Response
 /*
 DeleteAccount Delete Account
 
-This API submits an account delete task and returns the task ID. This operation can only be used on Flat File Sources. Any attempt to execute this request on the source of other type will result in an error response with a status code of 400.
-A token with ORG_ADMIN authority is required to call this API.
+Use this API to delete an account. 
+This endpoint submits an account delete task and returns the task ID. 
+This endpoint only deletes the account from IdentityNow, not the source itself, which can result in the account's returning with the next aggregation between the source and IdentityNow.  To avoid this scenario, it is recommended that you [disable accounts](https://developer.sailpoint.com/idn/api/v3/disable-account) rather than delete them. This will also allow you to reenable the accounts in the future. 
+A token with ORG_ADMIN, SOURCE_ADMIN, or SOURCE_SUBADMIN authority is required to call this API.
+>**NOTE: You can only delete accounts from sources of the "DelimitedFile" type.**
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id The account ID
+ @param id Account ID.
  @return ApiDeleteAccountRequest
 */
 func (a *AccountsAPIService) DeleteAccount(ctx context.Context, id string) ApiDeleteAccountRequest {
@@ -378,7 +383,7 @@ func (r ApiDisableAccountRequest) Execute() (*AccountsAsyncResult, *http.Respons
 DisableAccount Disable Account
 
 This API submits a task to disable the account and returns the task ID.  
-A token with ORG_ADMIN authority is required to call this API.
+A token with ORG_ADMIN, SOURCE_ADMIN, SOURCE_SUBADMIN, or HELPDESK authority is required to call this API.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param id The account id
@@ -558,7 +563,7 @@ func (r ApiEnableAccountRequest) Execute() (*AccountsAsyncResult, *http.Response
 EnableAccount Enable Account
 
 This API submits a task to enable account and returns the task ID.  
-A token with ORG_ADMIN authority is required to call this API.
+A token with ORG_ADMIN, SOURCE_ADMIN, SOURCE_SUBADMIN, or HELPDESK authority is required to call this API.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param id The account id
@@ -731,11 +736,11 @@ func (r ApiGetAccountRequest) Execute() (*Account, *http.Response, error) {
 /*
 GetAccount Account Details
 
-This API returns the details for a single account based on the ID.  
-A token with ORG_ADMIN authority is required to call this API.
+Use this API to return the details for a single account by its ID.  
+A token with ORG_ADMIN, SOURCE_ADMIN, SOURCE_SUBADMIN, or HELPDESK authority is required to call this API.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id The account ID
+ @param id Account ID.
  @return ApiGetAccountRequest
 */
 func (a *AccountsAPIService) GetAccount(ctx context.Context, id string) ApiGetAccountRequest {
@@ -922,7 +927,7 @@ func (r ApiGetAccountEntitlementsRequest) Execute() ([]EntitlementDto, *http.Res
 GetAccountEntitlements Account Entitlements
 
 This API returns entitlements of the account.  
-A token with ORG_ADMIN authority is required to call this API.
+A token with ORG_ADMIN, SOURCE_ADMIN, SOURCE_SUBADMIN, or HELPDESK authority is required to call this API.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param id The account id
@@ -1123,13 +1128,13 @@ func (r ApiListAccountsRequest) Count(count bool) ApiListAccountsRequest {
 	return r
 }
 
-// Filter results using the standard syntax described in [V3 API Standard Collection Parameters](https://developer.sailpoint.com/idn/api/standard-collection-parameters#filtering-results)  Filtering is supported for the following fields and operators:  **id**: *eq, in, sw*  **identityId**: *eq, in, sw*  **name**: *eq, in, sw*  **nativeIdentity**: *eq, in, sw*  **sourceId**: *eq, in, sw*  **uncorrelated**: *eq*  **identity.name**: *eq, in, sw*
+// Filter results using the standard syntax described in [V3 API Standard Collection Parameters](https://developer.sailpoint.com/idn/api/standard-collection-parameters#filtering-results)  Filtering is supported for the following fields and operators:  **id**: *eq, in, sw*  **identityId**: *eq, in, sw*  **name**: *eq, in, sw*  **nativeIdentity**: *eq, in, sw*  **sourceId**: *eq, in, sw*  **uncorrelated**: *eq*  **entitlements**: *eq*  **identity.name**: *eq, in, sw*  **identity.correlated**: *eq*  **identity.identityState**: *eq, in*  **source.displayableName**: *eq, in*  **source.authoritative**: *eq*  **source.connectionType**: *eq, in*
 func (r ApiListAccountsRequest) Filters(filters string) ApiListAccountsRequest {
 	r.filters = &filters
 	return r
 }
 
-// Sort results using the standard syntax described in [V3 API Standard Collection Parameters](https://developer.sailpoint.com/idn/api/standard-collection-parameters#sorting-results)  Sorting is supported for the following fields: **id, name, created, modified, sourceId, identityId, nativeIdentity, uuid, manuallyCorrelated, identity.name**
+// Sort results using the standard syntax described in [V3 API Standard Collection Parameters](https://developer.sailpoint.com/idn/api/standard-collection-parameters#sorting-results)  Sorting is supported for the following fields: **id, name, created, modified, sourceId, identityId, identity.id, nativeIdentity, uuid, manuallyCorrelated, entitlements, identity.name, identity.identityState, identity.correlated, source.displayableName, source.authoritative, source.connectionType**
 func (r ApiListAccountsRequest) Sorters(sorters string) ApiListAccountsRequest {
 	r.sorters = &sorters
 	return r
@@ -1143,7 +1148,7 @@ func (r ApiListAccountsRequest) Execute() ([]Account, *http.Response, error) {
 ListAccounts Accounts List
 
 This returns a list of accounts.  
-A token with ORG_ADMIN authority is required to call this API.
+A token with ORG_ADMIN, SOURCE_ADMIN, SOURCE_SUBADMIN, or HELPDESK authority is required to call this API.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListAccountsRequest
@@ -1327,12 +1332,13 @@ func (r ApiPutAccountRequest) Execute() (*AccountsAsyncResult, *http.Response, e
 /*
 PutAccount Update Account
 
-This API submits an account update task and returns the task ID.  
-A token with ORG_ADMIN authority is required to call this API.
->**NOTE: The PUT Account API is designated only for Delimited File sources.**
+Use this API to update an account with a PUT request. 
+This endpoint submits an account update task and returns the task ID. 
+A token with ORG_ADMIN, SOURCE_ADMIN, or SOURCE_SUBADMIN authority is required to call this API.
+>**NOTE: You can only use this PUT endpoint to update accounts from sources of the "DelimitedFile" type.**
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id The account ID
+ @param id Account ID.
  @return ApiPutAccountRequest
 */
 func (a *AccountsAPIService) PutAccount(ctx context.Context, id string) ApiPutAccountRequest {
@@ -1489,28 +1495,28 @@ func (a *AccountsAPIService) PutAccountExecute(r ApiPutAccountRequest) (*Account
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiReloadAccountRequest struct {
+type ApiSubmitReloadAccountRequest struct {
 	ctx context.Context
 	ApiService *AccountsAPIService
 	id string
 }
 
-func (r ApiReloadAccountRequest) Execute() (*AccountsAsyncResult, *http.Response, error) {
-	return r.ApiService.ReloadAccountExecute(r)
+func (r ApiSubmitReloadAccountRequest) Execute() (*AccountsAsyncResult, *http.Response, error) {
+	return r.ApiService.SubmitReloadAccountExecute(r)
 }
 
 /*
-ReloadAccount Reload Account
+SubmitReloadAccount Reload Account
 
 This API asynchronously reloads the account directly from the connector and performs a one-time aggregation process.  
-A token with ORG_ADMIN authority is required to call this API.
+A token with ORG_ADMIN, SOURCE_ADMIN, SOURCE_SUBADMIN, or HELPDESK authority is required to call this API.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param id The account id
- @return ApiReloadAccountRequest
+ @return ApiSubmitReloadAccountRequest
 */
-func (a *AccountsAPIService) ReloadAccount(ctx context.Context, id string) ApiReloadAccountRequest {
-	return ApiReloadAccountRequest{
+func (a *AccountsAPIService) SubmitReloadAccount(ctx context.Context, id string) ApiSubmitReloadAccountRequest {
+	return ApiSubmitReloadAccountRequest{
 		ApiService: a,
 		ctx: ctx,
 		id: id,
@@ -1519,7 +1525,7 @@ func (a *AccountsAPIService) ReloadAccount(ctx context.Context, id string) ApiRe
 
 // Execute executes the request
 //  @return AccountsAsyncResult
-func (a *AccountsAPIService) ReloadAccountExecute(r ApiReloadAccountRequest) (*AccountsAsyncResult, *http.Response, error) {
+func (a *AccountsAPIService) SubmitReloadAccountExecute(r ApiSubmitReloadAccountRequest) (*AccountsAsyncResult, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -1527,7 +1533,7 @@ func (a *AccountsAPIService) ReloadAccountExecute(r ApiReloadAccountRequest) (*A
 		localVarReturnValue  *AccountsAsyncResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountsAPIService.ReloadAccount")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountsAPIService.SubmitReloadAccount")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1678,10 +1684,11 @@ func (r ApiUnlockAccountRequest) Execute() (*AccountsAsyncResult, *http.Response
 UnlockAccount Unlock Account
 
 This API submits a task to unlock an account and returns the task ID.  
-A token with ORG_ADMIN authority is required to call this API.
+To use this endpoint to unlock an account that has the `forceProvisioning` option set to true, the `idn:accounts-provisioning:manage` scope is required. 
+A token with ORG_ADMIN, SOURCE_ADMIN, SOURCE_SUBADMIN, or HELPDESK authority is required to call this API.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id The account id
+ @param id The account ID.
  @return ApiUnlockAccountRequest
 */
 func (a *AccountsAPIService) UnlockAccount(ctx context.Context, id string) ApiUnlockAccountRequest {
@@ -1858,19 +1865,11 @@ func (r ApiUpdateAccountRequest) Execute() (map[string]interface{}, *http.Respon
 /*
 UpdateAccount Update Account
 
-Use this API to modify the following fields:
-* `identityId`
-
-* `manuallyCorrelated`
-
->**NOTE: All other fields cannot be modified.**
-
-The request must provide a JSONPatch payload.
-
-A token with ORG_ADMIN authority is required to call this API.
+This updates account details. A token with ORG_ADMIN, SOURCE_ADMIN, or SOURCE_SUBADMIN authority is required to call this API.
+This endpoint supports updating an account's correlation. It can only modify the identityId and manuallyCorrelated  attributes. To re-assign an account from one identity to another, replace the current identityId with a new value.  If the account you're assigning was provisioned by IdentityNow, it's possible IdentityNow could create a new account  for the previous identity as soon as the account is moved. If the account you're assigning is authoritative,  this will cause the previous identity to become uncorrelated and could even result in its deletion. All accounts  that are are reassigned will be set to manuallyCorrelated: true.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id The account ID
+ @param id Account ID.
  @return ApiUpdateAccountRequest
 */
 func (a *AccountsAPIService) UpdateAccount(ctx context.Context, id string) ApiUpdateAccountRequest {

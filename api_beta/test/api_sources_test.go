@@ -1,5 +1,5 @@
 /*
-IdentityNow Beta API
+Identity Security Cloud Beta API
 
 Testing SourcesAPIService
 
@@ -235,6 +235,20 @@ func Test_api_beta_SourcesAPIService(t *testing.T) {
 		var schemaId string
 
 		resp, httpRes, err := apiClient.API_BETA.SourcesAPI.GetSourceSchema(context.Background(), sourceId, schemaId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test SourcesAPIService ImportAccounts", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var id string
+
+		resp, httpRes, err := apiClient.API_BETA.SourcesAPI.ImportAccounts(context.Background(), id).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

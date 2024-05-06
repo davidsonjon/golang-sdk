@@ -1,7 +1,7 @@
 /*
-IdentityNow V3 API
+Identity Security Cloud V3 API
 
-Use these APIs to interact with the IdentityNow platform to achieve repeatable, automated processes with greater scalability. We encourage you to join the SailPoint Developer Community forum at https://developer.sailpoint.com/discuss to connect with other developers using our APIs.
+Use these APIs to interact with the Identity Security Cloud platform to achieve repeatable, automated processes with greater scalability. We encourage you to join the SailPoint Developer Community forum at https://developer.sailpoint.com/discuss to connect with other developers using our APIs.
 
 API version: 3.0.0
 */
@@ -19,11 +19,11 @@ var _ MappedNullable = &AttributeRequest{}
 
 // AttributeRequest struct for AttributeRequest
 type AttributeRequest struct {
-	// The attribute name
+	// Attribute name.
 	Name *string `json:"name,omitempty"`
-	// The operation to perform
+	// Operation to perform on attribute.
 	Op *string `json:"op,omitempty"`
-	// The value of the attribute
+	// Value of attribute.
 	Value *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

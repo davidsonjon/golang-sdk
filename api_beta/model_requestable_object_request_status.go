@@ -1,7 +1,7 @@
 /*
-IdentityNow Beta API
+Identity Security Cloud Beta API
 
-Use these APIs to interact with the IdentityNow platform to achieve repeatable, automated processes with greater scalability. These APIs are in beta and are subject to change. We encourage you to join the SailPoint Developer Community forum at https://developer.sailpoint.com/discuss to connect with other developers using our APIs.
+Use these APIs to interact with the Identity Security Cloud platform to achieve repeatable, automated processes with greater scalability. These APIs are in beta and are subject to change. We encourage you to join the SailPoint Developer Community forum at https://developer.sailpoint.com/discuss to connect with other developers using our APIs.
 
 API version: 3.1.0-beta
 */
@@ -23,6 +23,7 @@ const (
 	REQUESTABLEOBJECTREQUESTSTATUS_AVAILABLE RequestableObjectRequestStatus = "AVAILABLE"
 	REQUESTABLEOBJECTREQUESTSTATUS_PENDING RequestableObjectRequestStatus = "PENDING"
 	REQUESTABLEOBJECTREQUESTSTATUS_ASSIGNED RequestableObjectRequestStatus = "ASSIGNED"
+	REQUESTABLEOBJECTREQUESTSTATUS_NULL RequestableObjectRequestStatus = "null"
 )
 
 // All allowed values of RequestableObjectRequestStatus enum
@@ -30,6 +31,7 @@ var AllowedRequestableObjectRequestStatusEnumValues = []RequestableObjectRequest
 	"AVAILABLE",
 	"PENDING",
 	"ASSIGNED",
+	"null",
 }
 
 func (v *RequestableObjectRequestStatus) UnmarshalJSON(src []byte) error {

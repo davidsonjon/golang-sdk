@@ -1,7 +1,7 @@
 /*
-IdentityNow V3 API
+Identity Security Cloud V3 API
 
-Use these APIs to interact with the IdentityNow platform to achieve repeatable, automated processes with greater scalability. We encourage you to join the SailPoint Developer Community forum at https://developer.sailpoint.com/discuss to connect with other developers using our APIs.
+Use these APIs to interact with the Identity Security Cloud platform to achieve repeatable, automated processes with greater scalability. We encourage you to join the SailPoint Developer Community forum at https://developer.sailpoint.com/discuss to connect with other developers using our APIs.
 
 API version: 3.0.0
 */
@@ -44,7 +44,7 @@ var (
 	queryDescape    = strings.NewReplacer( "%5B", "[", "%5D", "]" )
 )
 
-// APIClient manages communication with the IdentityNow V3 API API v3.0.0
+// APIClient manages communication with the Identity Security Cloud V3 API API v3.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -64,7 +64,7 @@ type APIClient struct {
 
 	AccountsAPI *AccountsAPIService
 
-	AuthUserAPI *AuthUserAPIService
+	AuthUsersAPI *AuthUsersAPIService
 
 	BrandingAPI *BrandingAPIService
 
@@ -76,11 +76,19 @@ type APIClient struct {
 
 	CertificationsAPI *CertificationsAPIService
 
+	ConfigurationHubAPI *ConfigurationHubAPIService
+
+	ConnectorsAPI *ConnectorsAPIService
+
 	GlobalTenantSecuritySettingsAPI *GlobalTenantSecuritySettingsAPIService
 
 	IdentityProfilesAPI *IdentityProfilesAPIService
 
 	LifecycleStatesAPI *LifecycleStatesAPIService
+
+	ManagedClientsAPI *ManagedClientsAPIService
+
+	ManagedClustersAPI *ManagedClustersAPIService
 
 	NonEmployeeLifecycleManagementAPI *NonEmployeeLifecycleManagementAPIService
 
@@ -106,6 +114,8 @@ type APIClient struct {
 
 	RolesAPI *RolesAPIService
 
+	SODPoliciesAPI *SODPoliciesAPIService
+
 	SODPolicyAPI *SODPolicyAPIService
 
 	SODViolationsAPI *SODViolationsAPIService
@@ -129,6 +139,8 @@ type APIClient struct {
 	TransformsAPI *TransformsAPIService
 
 	WorkItemsAPI *WorkItemsAPIService
+
+	WorkflowsAPI *WorkflowsAPIService
 }
 
 type service struct {
@@ -153,15 +165,19 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.AccountActivitiesAPI = (*AccountActivitiesAPIService)(&c.common)
 	c.AccountUsagesAPI = (*AccountUsagesAPIService)(&c.common)
 	c.AccountsAPI = (*AccountsAPIService)(&c.common)
-	c.AuthUserAPI = (*AuthUserAPIService)(&c.common)
+	c.AuthUsersAPI = (*AuthUsersAPIService)(&c.common)
 	c.BrandingAPI = (*BrandingAPIService)(&c.common)
 	c.CertificationCampaignFiltersAPI = (*CertificationCampaignFiltersAPIService)(&c.common)
 	c.CertificationCampaignsAPI = (*CertificationCampaignsAPIService)(&c.common)
 	c.CertificationSummariesAPI = (*CertificationSummariesAPIService)(&c.common)
 	c.CertificationsAPI = (*CertificationsAPIService)(&c.common)
+	c.ConfigurationHubAPI = (*ConfigurationHubAPIService)(&c.common)
+	c.ConnectorsAPI = (*ConnectorsAPIService)(&c.common)
 	c.GlobalTenantSecuritySettingsAPI = (*GlobalTenantSecuritySettingsAPIService)(&c.common)
 	c.IdentityProfilesAPI = (*IdentityProfilesAPIService)(&c.common)
 	c.LifecycleStatesAPI = (*LifecycleStatesAPIService)(&c.common)
+	c.ManagedClientsAPI = (*ManagedClientsAPIService)(&c.common)
+	c.ManagedClustersAPI = (*ManagedClustersAPIService)(&c.common)
 	c.NonEmployeeLifecycleManagementAPI = (*NonEmployeeLifecycleManagementAPIService)(&c.common)
 	c.OAuthClientsAPI = (*OAuthClientsAPIService)(&c.common)
 	c.PasswordConfigurationAPI = (*PasswordConfigurationAPIService)(&c.common)
@@ -174,6 +190,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ReportsDataExtractionAPI = (*ReportsDataExtractionAPIService)(&c.common)
 	c.RequestableObjectsAPI = (*RequestableObjectsAPIService)(&c.common)
 	c.RolesAPI = (*RolesAPIService)(&c.common)
+	c.SODPoliciesAPI = (*SODPoliciesAPIService)(&c.common)
 	c.SODPolicyAPI = (*SODPolicyAPIService)(&c.common)
 	c.SODViolationsAPI = (*SODViolationsAPIService)(&c.common)
 	c.SavedSearchAPI = (*SavedSearchAPIService)(&c.common)
@@ -186,6 +203,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.TaggedObjectsAPI = (*TaggedObjectsAPIService)(&c.common)
 	c.TransformsAPI = (*TransformsAPIService)(&c.common)
 	c.WorkItemsAPI = (*WorkItemsAPIService)(&c.common)
+	c.WorkflowsAPI = (*WorkflowsAPIService)(&c.common)
 
 	return c
 }
@@ -527,7 +545,7 @@ func (c *APIClient) prepareRequest(
 
 	// Add the user agent to the request.
 	localVarRequest.Header.Add("User-Agent", c.cfg.UserAgent)
-localVarRequest.Header.Add("X-SailPoint-SDK", "2.0.1")
+localVarRequest.Header.Add("X-SailPoint-SDK", "2.0.5")
 
 	if ctx != nil {
 		// add context to the request

@@ -1,5 +1,5 @@
 /*
-IdentityNow Beta API
+Identity Security Cloud Beta API
 
 Testing EntitlementsAPIService
 
@@ -44,6 +44,20 @@ func Test_api_beta_EntitlementsAPIService(t *testing.T) {
 		var id string
 
 		resp, httpRes, err := apiClient.API_BETA.EntitlementsAPI.GetEntitlementRequestConfig(context.Background(), id).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test EntitlementsAPIService ImportEntitlements", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var id string
+
+		resp, httpRes, err := apiClient.API_BETA.EntitlementsAPI.ImportEntitlements(context.Background(), id).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -112,6 +126,20 @@ func Test_api_beta_EntitlementsAPIService(t *testing.T) {
 		var id string
 
 		resp, httpRes, err := apiClient.API_BETA.EntitlementsAPI.PutEntitlementRequestConfig(context.Background(), id).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test EntitlementsAPIService ResetSourceEntitlements", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var id string
+
+		resp, httpRes, err := apiClient.API_BETA.EntitlementsAPI.ResetSourceEntitlements(context.Background(), id).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

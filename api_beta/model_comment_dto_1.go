@@ -1,7 +1,7 @@
 /*
-IdentityNow Beta API
+Identity Security Cloud Beta API
 
-Use these APIs to interact with the IdentityNow platform to achieve repeatable, automated processes with greater scalability. These APIs are in beta and are subject to change. We encourage you to join the SailPoint Developer Community forum at https://developer.sailpoint.com/discuss to connect with other developers using our APIs.
+Use these APIs to interact with the Identity Security Cloud platform to achieve repeatable, automated processes with greater scalability. These APIs are in beta and are subject to change. We encourage you to join the SailPoint Developer Community forum at https://developer.sailpoint.com/discuss to connect with other developers using our APIs.
 
 API version: 3.1.0-beta
 */
@@ -24,6 +24,7 @@ type CommentDto1 struct {
 	Comment NullableString `json:"comment,omitempty"`
 	// Date and time comment was created.
 	Created *time.Time `json:"created,omitempty"`
+	Author *CommentDto1Author `json:"author,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -120,6 +121,38 @@ func (o *CommentDto1) SetCreated(v time.Time) {
 	o.Created = &v
 }
 
+// GetAuthor returns the Author field value if set, zero value otherwise.
+func (o *CommentDto1) GetAuthor() CommentDto1Author {
+	if o == nil || isNil(o.Author) {
+		var ret CommentDto1Author
+		return ret
+	}
+	return *o.Author
+}
+
+// GetAuthorOk returns a tuple with the Author field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CommentDto1) GetAuthorOk() (*CommentDto1Author, bool) {
+	if o == nil || isNil(o.Author) {
+		return nil, false
+	}
+	return o.Author, true
+}
+
+// HasAuthor returns a boolean if a field has been set.
+func (o *CommentDto1) HasAuthor() bool {
+	if o != nil && !isNil(o.Author) {
+		return true
+	}
+
+	return false
+}
+
+// SetAuthor gets a reference to the given CommentDto1Author and assigns it to the Author field.
+func (o *CommentDto1) SetAuthor(v CommentDto1Author) {
+	o.Author = &v
+}
+
 func (o CommentDto1) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -135,6 +168,9 @@ func (o CommentDto1) ToMap() (map[string]interface{}, error) {
 	}
 	if !isNil(o.Created) {
 		toSerialize["created"] = o.Created
+	}
+	if !isNil(o.Author) {
+		toSerialize["author"] = o.Author
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -156,6 +192,7 @@ func (o *CommentDto1) UnmarshalJSON(bytes []byte) (err error) {
 	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
 		delete(additionalProperties, "comment")
 		delete(additionalProperties, "created")
+		delete(additionalProperties, "author")
 		o.AdditionalProperties = additionalProperties
 	}
 

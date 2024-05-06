@@ -4,21 +4,9 @@ All URIs are relative to *https://sailpoint.api.identitynow.com/v3*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSodPolicy**](SODPolicyAPI.md#CreateSodPolicy) | **Post** /sod-policies | Create SOD policy
-[**DeleteSodPolicy**](SODPolicyAPI.md#DeleteSodPolicy) | **Delete** /sod-policies/{id} | Delete SOD policy by ID
-[**DeleteSodPolicySchedule**](SODPolicyAPI.md#DeleteSodPolicySchedule) | **Delete** /sod-policies/{id}/schedule | Delete SOD policy schedule
 [**GetCustomViolationReport**](SODPolicyAPI.md#GetCustomViolationReport) | **Get** /sod-violation-report/{reportResultId}/download/{fileName} | Download custom violation report
 [**GetDefaultViolationReport**](SODPolicyAPI.md#GetDefaultViolationReport) | **Get** /sod-violation-report/{reportResultId}/download | Download violation report
 [**GetSodAllReportRunStatus**](SODPolicyAPI.md#GetSodAllReportRunStatus) | **Get** /sod-violation-report | Get multi-report run task status
-[**GetSodPolicy**](SODPolicyAPI.md#GetSodPolicy) | **Get** /sod-policies/{id} | Get SOD policy by ID
-[**GetSodPolicySchedule**](SODPolicyAPI.md#GetSodPolicySchedule) | **Get** /sod-policies/{id}/schedule | Get SOD policy schedule
-[**GetSodViolationReportRunStatus**](SODPolicyAPI.md#GetSodViolationReportRunStatus) | **Get** /sod-policies/sod-violation-report-status/{reportResultId} | Get violation report run status
-[**GetSodViolationReportStatus**](SODPolicyAPI.md#GetSodViolationReportStatus) | **Get** /sod-policies/{id}/violation-report | Get SOD violation report status
-[**ListSodPolicies**](SODPolicyAPI.md#ListSodPolicies) | **Get** /sod-policies | List SOD policies
-[**PatchSodPolicy**](SODPolicyAPI.md#PatchSodPolicy) | **Patch** /sod-policies/{id} | Patch SOD policy by ID
-[**PutPolicySchedule**](SODPolicyAPI.md#PutPolicySchedule) | **Put** /sod-policies/{id}/schedule | Update SOD Policy schedule
-[**PutSodPolicy**](SODPolicyAPI.md#PutSodPolicy) | **Put** /sod-policies/{id} | Update SOD policy by ID
-[**StartEvaluateSodPolicy**](SODPolicyAPI.md#StartEvaluateSodPolicy) | **Post** /sod-policies/{id}/evaluate | Evaluate one policy by ID
 [**StartSodAllPoliciesForOrg**](SODPolicyAPI.md#StartSodAllPoliciesForOrg) | **Post** /sod-violation-report/run | Runs all policies for org
 [**StartSodPolicy**](SODPolicyAPI.md#StartSodPolicy) | **Post** /sod-policies/{id}/violation-report/run | Runs SOD policy violation report
 
@@ -41,7 +29,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -107,7 +95,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -177,7 +165,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -228,6 +216,8 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+=======
+>>>>>>> main
 ## GetCustomViolationReport
 
 > *os.File GetCustomViolationReport(ctx, reportResultId, fileName).Execute()
@@ -449,7 +439,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -519,7 +509,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -589,7 +579,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -659,7 +649,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -729,7 +719,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -801,7 +791,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -873,7 +863,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -945,7 +935,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -1017,7 +1007,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -1070,6 +1060,8 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+=======
+>>>>>>> main
 ## StartSodAllPoliciesForOrg
 
 > ReportResultReference StartSodAllPoliciesForOrg(ctx).MultiPolicyRequest(multiPolicyRequest).Execute()
@@ -1153,7 +1145,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "github.com/davidsonjon/golang-sdk/v2"
+    openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
 )
 
 func main() {
@@ -1204,3 +1196,5 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
+=======
+>>>>>>> main

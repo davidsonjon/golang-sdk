@@ -1,7 +1,7 @@
 /*
-IdentityNow Beta API
+Identity Security Cloud Beta API
 
-Use these APIs to interact with the IdentityNow platform to achieve repeatable, automated processes with greater scalability. These APIs are in beta and are subject to change. We encourage you to join the SailPoint Developer Community forum at https://developer.sailpoint.com/discuss to connect with other developers using our APIs.
+Use these APIs to interact with the Identity Security Cloud platform to achieve repeatable, automated processes with greater scalability. These APIs are in beta and are subject to change. We encourage you to join the SailPoint Developer Community forum at https://developer.sailpoint.com/discuss to connect with other developers using our APIs.
 
 API version: 3.1.0-beta
 */
@@ -1392,7 +1392,7 @@ func (r ApiGetEntitlementsPotentialRoleRequest) IncludeCommonAccess(includeCommo
 	return r
 }
 
-// Sort results using the standard syntax described in [V3 API Standard Collection Parameters](https://developer.sailpoint.com/idn/api/standard-collection-parameters#sorting-results)  Sorting is supported for the following fields: **popularity**  The default sort is **popularity** in descending order. 
+// Sort results using the standard syntax described in [V3 API Standard Collection Parameters](https://developer.sailpoint.com/idn/api/standard-collection-parameters#sorting-results)  Sorting is supported for the following fields: **popularity, entitlementName, applicationName**  The default sort is **popularity** in descending order. 
 func (r ApiGetEntitlementsPotentialRoleRequest) Sorters(sorters string) ApiGetEntitlementsPotentialRoleRequest {
 	r.sorters = &sorters
 	return r
@@ -1470,6 +1470,9 @@ func (a *IAIRoleMiningAPIService) GetEntitlementsPotentialRoleExecute(r ApiGetEn
 
 	if r.includeCommonAccess != nil {
 		parameterAddToQuery(localVarQueryParams, "includeCommonAccess", r.includeCommonAccess, "")
+	} else {
+		var defaultValue bool = true
+		r.includeCommonAccess = &defaultValue
 	}
 	if r.sorters != nil {
 		parameterAddToQuery(localVarQueryParams, "sorters", r.sorters, "")
@@ -1558,6 +1561,17 @@ func (a *IAIRoleMiningAPIService) GetEntitlementsPotentialRoleExecute(r ApiGetEn
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v ErrorResponseDto
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v ListAccessProfiles429Response
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
