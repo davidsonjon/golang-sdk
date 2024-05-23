@@ -41,7 +41,7 @@ We use [GitHub Issues](https://docs.github.com/en/issues/tracking-your-work-with
 You may encounter bugs and incorrect or outdated information when you explore the Golang SDK. 
 We appreciate your help in identifying bugs of all sizes, from broken links or typos to major issues preventing you from using a resource. 
 
-We use GitHub issues to track bugs publicly. If you see an issue with the SDK, please [report it here](https://github.com/sailpoint-oss/golang-sdk/issues/new?assignees=&labels=&template=bug-report.md&title=%5BBug%5D+Your+Bug+Report+Here). 
+We use GitHub issues to track bugs publicly. If you see an issue with the SDK, please [report it here](https://github.com/davidsonjon/golang-sdk/issues/new?assignees=&labels=&template=bug-report.md&title=%5BBug%5D+Your+Bug+Report+Here). 
 
 We love thorough bug reports. 
 The more details you include, the faster we can troubleshoot and fix the issue. 
@@ -67,7 +67,7 @@ Many of our most valuable resources originate in ideas suggested by the communit
 You may have an idea that will improve the site. 
 We would love to hear it and possibly implement it! 
 
-We use GitHub issues to track feature requests. Please use [this template](https://github.com/sailpoint-oss/golang-sdk/issues/new?assignees=&labels=&template=feature-request.md&title=%5BFeature%5D+Your+Feature+Request+Here) when you request a new feature.
+We use GitHub issues to track feature requests. Please use [this template](https://github.com/davidsonjon/golang-sdk/issues/new?assignees=&labels=&template=feature-request.md&title=%5BFeature%5D+Your+Feature+Request+Here) when you request a new feature.
 
 We love thorough feature requests. 
 The more details you include, the faster we can implement your request. 
@@ -143,7 +143,7 @@ These are the auto-generated files you cannot modify:
 ## Report general issues 
 
 It's possible that none of the options listed here will properly address your issue. 
-If you have a general issue, you can submit a general issue by using GitHub's [issues](https://github.com/sailpoint-oss/golang-sdk/issues). 
+If you have a general issue, you can submit a general issue by using GitHub's [issues](https://github.com/davidsonjon/golang-sdk/issues). 
 Add as much detail as you can to your issue, and we will address it as quickly as we can. 
 
 ## Discuss on the forum

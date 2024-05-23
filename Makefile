@@ -1,6 +1,6 @@
 .PHONY: specs
 specs:	
-	git clone https://github.com/sailpoint-oss/api-specs.git api-specs
+	git clone https://github.com/davidsonjon/api-specs.git api-specs
 
 .PHONY: clean-specs
 clean-specs:	

@@ -23,7 +23,7 @@ go get golang.org/x/net/context
 Put the package under your project folder and add the following in import:
 
 ```golang
-import api_v3 "github.com/sailpoint-oss/golang-sdk/v2"
+import api_v3 "github.com/davidsonjon/golang-sdk/v2"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:
@@ -1047,6 +1047,3 @@ Each of these functions takes a value of the given basic type and returns a poin
 * `PtrTime`
 
 ## Author
-
-
-

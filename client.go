@@ -11,9 +11,10 @@ package sailpoint
 import (
 	"regexp"
 
+	beta "github.com/davidsonjon/golang-sdk/v2/api_beta"
+	cc "github.com/davidsonjon/golang-sdk/v2/api_cc"
+	v3 "github.com/davidsonjon/golang-sdk/v2/api_v3"
 	"github.com/hashicorp/go-retryablehttp"
-	beta "github.com/sailpoint-oss/golang-sdk/v2/api_beta"
-	v3 "github.com/sailpoint-oss/golang-sdk/v2/api_v3"
 )
 
 var (
@@ -31,12 +32,14 @@ type APIClient struct {
 
 	V3    *v3.APIClient
 	Beta  *beta.APIClient
+	CC    *cc.APIClient
 	token string
 }
 
 type service struct {
 	client     *v3.APIClient
 	betaClient *beta.APIClient
+	ccClient   *cc.APIClient
 }
 
 // NewAPIClient creates a new API client. Requires a userAgent string describing your application.
@@ -50,12 +53,15 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 
 	CV3 := v3.NewConfiguration(cfg.ClientConfiguration.ClientId, cfg.ClientConfiguration.ClientSecret, cfg.ClientConfiguration.BaseURL+"/v3", cfg.ClientConfiguration.TokenURL, cfg.ClientConfiguration.Token)
 	CBeta := beta.NewConfiguration(cfg.ClientConfiguration.ClientId, cfg.ClientConfiguration.ClientSecret, cfg.ClientConfiguration.BaseURL+"/beta", cfg.ClientConfiguration.TokenURL, cfg.ClientConfiguration.Token)
+	CCC := cc.NewConfiguration(cfg.ClientConfiguration.ClientId, cfg.ClientConfiguration.ClientSecret, cfg.ClientConfiguration.BaseURL, cfg.ClientConfiguration.TokenURL, cfg.ClientConfiguration.Token)
 
 	CV3.HTTPClient = cfg.HTTPClient
 	CBeta.HTTPClient = cfg.HTTPClient
+	CCC.HTTPClient = cfg.HTTPClient
 
 	c.V3 = v3.NewAPIClient(CV3)
 	c.Beta = beta.NewAPIClient(CBeta)
+	c.CC = cc.NewAPIClient(CCC)
 
 	// API Services
 
