@@ -740,7 +740,10 @@ func (a *EntitlementsAPIService) ImportEntitlementsExecute(r ApiImportEntitlemen
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"multipart/form-data"}
+	var localVarHTTPContentTypes []string
+	if r.csvFile != nil {
+		localVarHTTPContentTypes = []string{"multipart/form-data"}
+	}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
