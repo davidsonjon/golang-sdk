@@ -40,7 +40,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
+	openapiclient "github.com/davidsonjon/golang-sdk/v2"
 )
 
 func main() {
@@ -106,7 +106,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
+	openapiclient "github.com/davidsonjon/golang-sdk/v2"
 )
 
 func main() {
@@ -172,7 +172,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
+	openapiclient "github.com/davidsonjon/golang-sdk/v2"
 )
 
 func main() {
@@ -248,7 +248,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
+	openapiclient "github.com/davidsonjon/golang-sdk/v2"
 )
 
 func main() {
@@ -316,7 +316,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
+	openapiclient "github.com/davidsonjon/golang-sdk/v2"
 )
 
 func main() {
@@ -377,7 +377,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
+	openapiclient "github.com/davidsonjon/golang-sdk/v2"
 )
 
 func main() {
@@ -447,7 +447,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
+	openapiclient "github.com/davidsonjon/golang-sdk/v2"
 )
 
 func main() {
@@ -515,7 +515,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
+	openapiclient "github.com/davidsonjon/golang-sdk/v2"
 )
 
 func main() {
@@ -595,7 +595,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
+	openapiclient "github.com/davidsonjon/golang-sdk/v2"
 )
 
 func main() {
@@ -677,7 +677,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
+	openapiclient "github.com/davidsonjon/golang-sdk/v2"
 )
 
 func main() {
@@ -757,7 +757,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
+	openapiclient "github.com/davidsonjon/golang-sdk/v2"
 )
 
 func main() {
@@ -829,7 +829,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
+	openapiclient "github.com/davidsonjon/golang-sdk/v2"
 )
 
 func main() {
@@ -909,7 +909,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
+	openapiclient "github.com/davidsonjon/golang-sdk/v2"
 )
 
 func main() {
@@ -985,7 +985,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
+	openapiclient "github.com/davidsonjon/golang-sdk/v2"
 )
 
 func main() {
@@ -1051,7 +1051,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
+	openapiclient "github.com/davidsonjon/golang-sdk/v2"
 )
 
 func main() {
@@ -1117,7 +1117,7 @@ import (
 	"context"
 	"fmt"
 	"os"
-	openapiclient "github.com/sailpoint-oss/golang-sdk/v2"
+	openapiclient "github.com/davidsonjon/golang-sdk/v2"
 )
 
 func main() {
@@ -1164,4 +1164,3 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
-
